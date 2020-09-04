@@ -1,0 +1,37 @@
+/* 隐藏滚动条 */
+::-webkit-scrollbar {
+  display: none;
+  width: 0 !important;
+  height: 0 !important;
+  -webkit-appearance: none;
+  background-color: transparent;
+}
+
+/* 文字 */
+.text-main {
+  color: #ff4a6a !important;
+}
+.text-hover-main {
+  color: #fb85a7 !important;
+}
+
+/* 背景 */
+.bg-main {
+  background-color: #ff4a6a !important;
+}
+.bg-hover-main {
+  background-color: #fb85a7 !important;
+}
+.bg-disabled-main {
+  background-color: #f89bad !important;
+}
+
+/* 边框 */
+.border-main {
+  border-color: #ff4a6a !important;
+}
+
+/* 行高 */
+.line-h {
+  line-height: 1;
+}
