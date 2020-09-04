@@ -1,16 +1,106 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
-			"path": "pages/index/index",
-			"style": {
-				"navigationBarTitleText": "uni-app"
-			}
-		}
-	],
-	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
-	}
+  "pages": [
+    //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+    {
+      "path": "pages/index/index",
+      "style": {
+        // #ifdef MP
+        "navigationStyle": "custom",
+        // #endif
+        "enablePullDownRefresh": true,
+        "navigationBarTitleText": "首页",
+        "app-plus": {
+          // 取消iOS端软键盘上方横条
+          "scrollIndicator": "none",
+          "bounce": "none",
+          "titleNView": {
+            "searchInput": {
+              "align": "center",
+              "backgroundColor": "#f7f7f7",
+              "borderRadius": "4px",
+              // 原生导航栏上的搜索框禁止输入
+              "disabled": true,
+              "placeholder": "搜索",
+              "placeholderColor": "#cccccc"
+            },
+            "buttons": [
+              {
+                "color": "#989898",
+                "colorPressed": "#fd6801",
+                "float": "left",
+                "fontSize": "20px",
+                "fontSrc": "/static/iconfont.ttf",
+                "text": "\ue67a",
+                "width": "44px"
+              },
+              {
+                "color": "#989898",
+                "colorPressed": "#fd6801",
+                "float": "right",
+                "fontSize": "20px",
+                "fontSrc": "/static/iconfont.ttf",
+                "text": "\ue661",
+                "width": "44px"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "path": "pages/cate/cate",
+      "style": {
+        "navigationBarTitleText": "分类"
+      }
+    },
+    {
+      "path": "pages/cart/cart",
+      "style": {
+        "navigationBarTitleText": "购物车"
+      }
+    },
+    {
+      "path": "pages/mine/mine",
+      "style": {
+        "navigationBarTitleText": "我的"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "仿小米商城",
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundColor": "#ffffff"
+  },
+  "tabBar": {
+    "color": "#b1b1b1",
+    "selectedColor": "#FD6801",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "static/tabbar/index.png",
+        "selectedIconPath": "static/tabbar/index-selected.png"
+      },
+      {
+        "pagePath": "pages/cate/cate",
+        "text": "动态",
+        "iconPath": "static/tabbar/cate.png",
+        "selectedIconPath": "static/tabbar/cate-selected.png"
+      },
+      {
+        "pagePath": "pages/cart/cart",
+        "text": "消息",
+        "iconPath": "static/tabbar/cart.png",
+        "selectedIconPath": "static/tabbar/cart-selected.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "static/tabbar/mine.png",
+        "selectedIconPath": "static/tabbar/mine-selected.png"
+      }
+    ]
+  }
 }

@@ -9,26 +9,26 @@
 
 /* 文字 */
 .text-main {
-  color: #ff4a6a !important;
+  color: #fd6801 !important;
 }
 .text-hover-main {
-  color: #fb85a7 !important;
+  color: #f77417 !important;
 }
 
 /* 背景 */
 .bg-main {
-  background-color: #ff4a6a !important;
+  background-color: #fd6801 !important;
 }
 .bg-hover-main {
-  background-color: #fb85a7 !important;
+  background-color: #f77417 !important;
 }
 .bg-disabled-main {
-  background-color: #f89bad !important;
+  background-color: #f8b88b !important;
 }
 
 /* 边框 */
 .border-main {
-  border-color: #ff4a6a !important;
+  border-color: #fd6801 !important;
 }
 
 /* 行高 */
