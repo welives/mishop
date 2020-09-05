@@ -1,4 +1,4 @@
-import $T from '../js/time'
+import $time from '../js/time'
 export default {
   data() {
     return {
@@ -13,7 +13,7 @@ export default {
   filters: {
     // 格式化时间戳
     formatTime(value) {
-      return $T.getTime(value)
+      return $time.getTime(value)
     },
   },
   methods: {
