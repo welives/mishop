@@ -27,11 +27,12 @@
 }
 
 /* 宽度 */
-/* #ifndef APP-PLUS-NVUE */
 .w-100 {
   width: 100%;
+  /* #ifdef APP-PLUS-NVUE */
+  width: 750px;
+  /* #endif */
 }
-/* #endif */
 
 .row {
   margin-right: -20rpx;
@@ -208,8 +209,9 @@
 /* #endif */
 
 .flex-fill {
-  flex: 1 1 auto !important;
+  flex: 1 !important;
 }
+
 /* #ifndef APP-PLUS-NVUE */
 /* 伸 */
 .flex-grow-1 {
@@ -660,12 +662,14 @@
   lines: 1;
   /* #endif */
 }
+/* #ifndef APP-PLUS-NVUE */
 .text-wrap {
   /* #ifndef MP */
   word-break: break-all;
   /* #endif */
   word-wrap: break-word;
 }
+/* #endif */
 
 /* 文字粗细和斜体 */
 .font-weight-thin {
@@ -953,9 +957,12 @@
 .position-fixed {
   position: fixed;
 }
+/* #ifndef APP-PLUS-NVUE */
 .position-static {
   position: static;
 }
+/* #endif */
+
 /* 定位 - 固定顶部 */
 .fixed-top {
   position: fixed;

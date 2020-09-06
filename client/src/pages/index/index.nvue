@@ -1,0 +1,20 @@
+<template>
+  <div></div>
+</template>
+
+<script>
+  import demo from './data'
+  import carousel from '@/components/index/nvue/carousel'
+  export default {
+    components: {
+      carousel,
+    },
+    data() {
+      return {
+        carousel: demo.carousel,
+      }
+    },
+  }
+</script>
+
+<style scoped></style>
