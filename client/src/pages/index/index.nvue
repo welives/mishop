@@ -1,5 +1,7 @@
 <template>
-  <view></view>
+  <view>
+    <carousel :carousel="carousel"></carousel>
+  </view>
 </template>
 
 <script>

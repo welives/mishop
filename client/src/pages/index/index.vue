@@ -30,7 +30,7 @@
           <block v-for="(list, idx) in item.list" :key="idx">
             <!-- 轮播图 -->
             <template v-if="list.type === 'carousel' && list.data.length">
-              <carousel style="height: 300rpx;" :carousel="list.data" />
+              <carousel :carousel="list.data" />
             </template>
             <!-- 分类 -->
             <template v-if="list.type === 'cate' && list.data.length">

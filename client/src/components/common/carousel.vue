@@ -1,17 +1,26 @@
 <template>
-  <swiper indicator-dots autoplay :interval="3000" circular indicator-active-color="#fd6801">
-    <block v-for="(item, index) in carousel" :key="index">
-      <swiper-item>
-        <image style="width: 100%; height: 100%;" :src="item.src" mode="aspectFill" lazy-load @click.stop="onClick" />
+  <view>
+    <swiper indicator-dots autoplay :interval="3000" circular indicator-active-color="#fd6801" :style="imageStyle">
+      <swiper-item v-for="(item, index) in carousel" :key="index">
+        <image class="w-100" :style="imageStyle" :src="item.src" lazy-load @click.stop="onClick" />
       </swiper-item>
-    </block>
-  </swiper>
+    </swiper>
+  </view>
 </template>
 
 <script>
 export default {
   props: {
-    carousel: Array,
+    carousel: [Array, Object],
+    height: {
+      type: [Number, String],
+      default: 300,
+    },
+  },
+  computed: {
+    imageStyle() {
+      return `height: ${this.height}rpx;`
+    },
   },
   methods: {
     onClick() {

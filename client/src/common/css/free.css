@@ -1,11 +1,45 @@
+/* #ifndef APP-PLUS-NVUE */
+:root {
+  --primary: #007bff;
+  --primary-hover: #0062cc;
+  --secondary: #6c757d;
+  --secondary-hvoer: #494f54;
+  --success: #28a745;
+  --success-hover: #19692c;
+  --danger: #dc3545;
+  --danger-hover: #a71d2a;
+  --warning: #ffc107;
+  --warning-hover: #ba8b00;
+  --info: #17a2b8;
+  --info-hover: #0f6674;
+  --light: #f8f9fa;
+  --light-hover: #cbd3da;
+  --dark: #343a40;
+  --dark-hover: #121416;
+  --muted: #6c757d;
+  --white: #fff;
+}
+/* #endif */
+
 /* #ifdef H5 */
 * {
   box-sizing: border-box;
 }
 /* #endif */
 
-/* scroll-view */
 /* #ifndef APP-PLUS-NVUE */
+/* 隐藏滚动条 */
+::-webkit-scrollbar {
+  display: none;
+  width: 0 !important;
+  height: 0 !important;
+  -webkit-appearance: none;
+  background-color: transparent;
+}
+/* #endif */
+
+/* #ifndef APP-PLUS-NVUE */
+/* scroll-view */
 .scroll-row {
   width: 100%;
   white-space: nowrap;
@@ -26,13 +60,12 @@
   color: #0e151d;
 }
 
+/* #ifndef APP-PLUS-NVUE */
 /* 宽度 */
 .w-100 {
   width: 100%;
-  /* #ifdef APP-PLUS-NVUE */
-  width: 750px;
-  /* #endif */
 }
+/* #endif */
 
 .row {
   margin-right: -20rpx;
@@ -631,16 +664,18 @@
   line-height: 1.8;
 }
 
-/* 文字缩进 */
 /* #ifndef APP-PLUS-NVUE */
+/* 文字缩进 */
 .text-indent {
   text-indent: 2;
 }
 /* #endif */
+
 /* 文字删除线 */
 .text-through {
   text-decoration: line-through;
 }
+
 /* 文字对齐 */
 .text-left {
   text-align: left;
@@ -651,6 +686,7 @@
 .text-center {
   text-align: center;
 }
+
 /* 文字换行溢出处理 */
 .text-ellipsis {
   /* #ifndef APP-PLUS-NVUE */
@@ -662,6 +698,7 @@
   lines: 1;
   /* #endif */
 }
+
 /* #ifndef APP-PLUS-NVUE */
 .text-wrap {
   /* #ifndef MP */
@@ -696,63 +733,118 @@
   /*斜体*/
   font-style: italic;
 }
+
 /* 文字颜色 */
 .text-white {
   color: #ffffff;
+  /* #ifndef APP-PLUS-NVUE */
+  color: var(--white);
+  /* #endif */
 }
 .text-primary {
   color: #007bff;
+  /* #ifndef APP-PLUS-NVUE */
+  color: var(--primary);
+  /* #endif */
 }
 .text-hover-primary {
   color: #0056b3;
+  /* #ifndef APP-PLUS-NVUE */
+  color: var(--primary-hover);
+  /* #endif */
 }
 .text-secondary {
   color: #6c757d;
+  /* #ifndef APP-PLUS-NVUE */
+  color: var(--secondary);
+  /* #endif */
 }
 .text-hover-secondary {
   color: #494f54;
+  /* #ifndef APP-PLUS-NVUE */
+  color: var(--secondary-hvoer);
+  /* #endif */
 }
 .text-success {
   color: #28a745;
+  /* #ifndef APP-PLUS-NVUE */
+  color: var(--success);
+  /* #endif */
 }
 .text-hover-success {
   color: #19692c;
+  /* #ifndef APP-PLUS-NVUE */
+  color: var(--success-hover);
+  /* #endif */
 }
 .text-info {
   color: #17a2b8;
+  /* #ifndef APP-PLUS-NVUE */
+  color: var(--info);
+  /* #endif */
 }
 .text-hover-info {
   color: #0f6674;
+  /* #ifndef APP-PLUS-NVUE */
+  color: var(--info-hover);
+  /* #endif */
 }
 .text-warning {
   color: #ffc107;
+  /* #ifndef APP-PLUS-NVUE */
+  color: var(--warning);
+  /* #endif */
 }
 .text-hover-warning {
   color: #ba8b00;
+  /* #ifndef APP-PLUS-NVUE */
+  color: var(--warning-hover);
+  /* #endif */
 }
 .text-danger {
   color: #dc3545;
+  /* #ifndef APP-PLUS-NVUE */
+  color: var(--danger);
+  /* #endif */
 }
 .text-hover-danger {
   color: #a71d2a;
+  /* #ifndef APP-PLUS-NVUE */
+  color: var(--danger-hover);
+  /* #endif */
 }
 .text-light {
   color: #f8f9fa;
+  /* #ifndef APP-PLUS-NVUE */
+  color: var(--light);
+  /* #endif */
 }
 .text-hover-light {
   color: #cbd3da;
+  /* #ifndef APP-PLUS-NVUE */
+  color: var(--light-hover);
+  /* #endif */
 }
 .text-dark {
   color: #343a40;
+  /* #ifndef APP-PLUS-NVUE */
+  color: var(--dark);
+  /* #endif */
 }
 .text-hover-dark {
   color: #121416;
+  /* #ifndef APP-PLUS-NVUE */
+  color: var(--dark-hover);
+  /* #endif */
 }
 .text-body {
   color: #212529;
 }
 .text-muted {
   color: #6c757d;
+  /* #ifndef APP-PLUS-NVUE */
+  color: var(--muted);
+  /* #endif */
 }
 /* 浅灰色 */
 .text-light-muted {
@@ -768,54 +860,105 @@
 /* 背景颜色 */
 .bg-primary {
   background-color: #007bff;
+  /* #ifndef APP-PLUS-NVUE */
+  background-color: var(--primary);
+  /* #endif */
 }
-.bg-hover-primary:hover {
+.bg-hover-primary {
   background-color: #0062cc;
+  /* #ifndef APP-PLUS-NVUE */
+  background-color: var(--primary-hover);
+  /* #endif */
 }
 .bg-secondary {
   background-color: #6c757d;
+  /* #ifndef APP-PLUS-NVUE */
+  background-color: var(--secondary);
+  /* #endif */
 }
-.bg-hover-secondary:hover {
+.bg-hover-secondary {
   background-color: #545b62;
+  /* #ifndef APP-PLUS-NVUE */
+  background-color: var(--secondary-hvoer);
+  /* #endif */
 }
 .bg-success {
   background-color: #28a745;
+  /* #ifndef APP-PLUS-NVUE */
+  background-color: var(--success);
+  /* #endif */
 }
 .bg-hover-success {
   background-color: #1e7e34;
+  /* #ifndef APP-PLUS-NVUE */
+  background-color: var(--success-hover);
+  /* #endif */
 }
 .bg-info {
   background-color: #17a2b8;
+  /* #ifndef APP-PLUS-NVUE */
+  background-color: var(--info);
+  /* #endif */
 }
 .bg-hover-info {
   background-color: #117a8b;
+  /* #ifndef APP-PLUS-NVUE */
+  background-color: var(--info-hover);
+  /* #endif */
 }
 .bg-warning {
   background-color: #ffc107;
+  /* #ifndef APP-PLUS-NVUE */
+  background-color: var(--warning);
+  /* #endif */
 }
 .bg-hover-warning {
   background-color: #d39e00;
+  /* #ifndef APP-PLUS-NVUE */
+  background-color: var(--warning-hover);
+  /* #endif */
 }
 .bg-danger {
   background-color: #dc3545;
+  /* #ifndef APP-PLUS-NVUE */
+  background-color: var(--danger);
+  /* #endif */
 }
 .bg-hover-danger {
   background-color: #bd2130;
+  /* #ifndef APP-PLUS-NVUE */
+  background-color: var(--danger-hover);
+  /* #endif */
 }
 .bg-light {
   background-color: #f8f9fa;
+  /* #ifndef APP-PLUS-NVUE */
+  background-color: var(--light);
+  /* #endif */
 }
 .bg-hover-light {
   background-color: #dae0e5;
+  /* #ifndef APP-PLUS-NVUE */
+  background-color: var(--light-hover);
+  /* #endif */
 }
 .bg-dark {
   background-color: #343a40;
+  /* #ifndef APP-PLUS-NVUE */
+  background-color: var(--dark);
+  /* #endif */
 }
 .bg-hover-dark {
   background-color: #1d2124;
+  /* #ifndef APP-PLUS-NVUE */
+  background-color: var(--dark-hover);
+  /* #endif */
 }
 .bg-white {
   background-color: #ffffff;
+  /* #ifndef APP-PLUS-NVUE */
+  background-color: var(--white);
+  /* #endif */
 }
 .bg-transparent {
   background-color: transparent;
@@ -864,33 +1007,60 @@
 }
 .border-primary {
   border-color: #007bff;
+  /* #ifndef APP-PLUS-NVUE */
+  border-color: var(--primary);
+  /* #endif */
 }
 .border-secondary {
   border-color: #6c757d;
+  /* #ifndef APP-PLUS-NVUE */
+  border-color: var(--secondary);
+  /* #endif */
 }
 .border-light-secondary {
   border-color: #e9e8e5;
 }
 .border-success {
   border-color: #28a745;
+  /* #ifndef APP-PLUS-NVUE */
+  border-color: var(--success);
+  /* #endif */
 }
 .border-info {
   border-color: #17a2b8;
+  /* #ifndef APP-PLUS-NVUE */
+  border-color: var(--info);
+  /* #endif */
 }
 .border-warning {
   border-color: #ffc107;
+  /* #ifndef APP-PLUS-NVUE */
+  border-color: var(--warning);
+  /* #endif */
 }
 .border-danger {
   border-color: #dc3545;
+  /* #ifndef APP-PLUS-NVUE */
+  border-color: var(--danger);
+  /* #endif */
 }
 .border-light {
   border-color: #f8f9fa;
+  /* #ifndef APP-PLUS-NVUE */
+  border-color: var(--light);
+  /* #endif */
 }
 .border-dark {
   border-color: #343a40;
+  /* #ifndef APP-PLUS-NVUE */
+  border-color: var(--dark);
+  /* #endif */
 }
 .border-white {
   border-color: #ffffff;
+  /* #ifndef APP-PLUS-NVUE */
+  border-color: var(--white);
+  /* #endif */
 }
 
 /* 圆角 */
@@ -924,9 +1094,11 @@
   border-top-left-radius: 8rpx;
   border-bottom-left-radius: 8rpx;
 }
+/* #ifndef APP-PLUS-NVUE */
 .rounded-circle {
   border-radius: 50%;
 }
+/* #endif */
 .rounded-0 {
   border-radius: 0;
 }

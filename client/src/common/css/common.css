@@ -1,36 +1,51 @@
-/* 隐藏滚动条 */
 /* #ifndef APP-PLUS-NVUE */
-::-webkit-scrollbar {
-  display: none;
-  width: 0 !important;
-  height: 0 !important;
-  -webkit-appearance: none;
-  background-color: transparent;
+:root {
+  --main: #fd6801;
+  --main-hover: #f77417;
+  --main-disabled: #f8b88b;
 }
 /* #endif */
 
 /* 文字 */
 .text-main {
-  color: #fd6801 !important;
+  color: #fd6801;
+  /* #ifndef APP-PLUS-NVUE */
+  color: var(--main) !important;
+  /* #endif */
 }
 .text-hover-main {
-  color: #f77417 !important;
+  color: #f77417;
+  /* #ifndef APP-PLUS-NVUE */
+  color: var(--main-hover) !important;
+  /* #endif */
 }
 
 /* 背景 */
 .bg-main {
-  background-color: #fd6801 !important;
+  background-color: #fd6801;
+  /* #ifndef APP-PLUS-NVUE */
+  background-color: var(--main) !important;
+  /* #endif */
 }
 .bg-hover-main {
-  background-color: #f77417 !important;
+  background-color: #f77417;
+  /* #ifndef APP-PLUS-NVUE */
+  background-color: var(--main-hover) !important;
+  /* #endif */
 }
 .bg-disabled-main {
-  background-color: #f8b88b !important;
+  background-color: #f8b88b;
+  /* #ifndef APP-PLUS-NVUE */
+  background-color: var(--main-disabled) !important;
+  /* #endif */
 }
 
 /* 边框 */
 .border-main {
-  border-color: #fd6801 !important;
+  border-color: #fd6801;
+  /* #ifndef APP-PLUS-NVUE */
+  border-color: var(--main) !important;
+  /* #endif */
 }
 
 /* 行高 */
