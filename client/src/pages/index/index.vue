@@ -101,6 +101,11 @@ export default {
     this.scrollHeight = res.windowHeight - uni.upx2px(80)
     this.__init()
   },
+  onPullDownRefresh() {
+    setTimeout(() => {
+      uni.stopPullDownRefresh()
+    }, 500)
+  },
   methods: {
     // 初始化数据
     __init() {
