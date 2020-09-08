@@ -1,0 +1,99 @@
+<template>
+  <div class="scroller-container">
+    <scroller class="scroller" :show-scrollbar="false" scroll-direction="horizontal">
+      <div
+        class="scroller-item"
+        v-for="(tab, index) in tabBars"
+        :key="index"
+        :ref="'tab_' + index"
+        @click.stop="changeTab(index)"
+      >
+        <text class="tab-text" :class="tabIndex === index ? 'border-main tab-active' : 'tab-muted border-bottom-0'">{{
+          tab.name
+        }}</text>
+      </div>
+    </scroller>
+  </div>
+</template>
+
+<script>
+const dom = weex.requireModule('dom')
+export default {
+  props: {
+    tabIndex: {
+      type: Number,
+      default: 0,
+    },
+    tabBars: {
+      type: Array,
+      default: [],
+    },
+  },
+  watch: {
+    tabIndex(newValue) {
+      this.changeTab(newValue)
+    },
+  },
+  methods: {
+    // 切换选项卡
+    async changeTab(index) {
+      // 通知父组件修改index
+      this.$emit('change', index)
+      // 拿到当前元素
+      let el = this.$refs[`tab_${index}`][0]
+      // 监听滚动
+      dom.getComponentRect(el, (res) => {
+        // 处于可视区域右侧
+        if (res.size.right > 750) {
+          let target = this.$refs[`tab_${index - 5}`][0]
+          dom.scrollToElement(target, {})
+        }
+        // 处于可视区域左侧
+        else if (res.size.left < 0) {
+          dom.scrollToElement(el, {})
+        }
+      })
+    },
+  },
+}
+</script>
+
+<style scoped>
+.scroller-container {
+  width: 750px;
+  border-bottom-width: 2px;
+  border-bottom-color: #e8e8e8;
+  border-bottom-style: solid;
+}
+.scroller {
+  flex-direction: row;
+  width: 750px;
+  height: 80px;
+}
+.scroller-item {
+  width: 125px;
+  height: 80px;
+  align-items: center;
+  justify-content: center;
+}
+.tab-text {
+  height: 80px;
+  line-height: 80px;
+  font-size: 35px;
+  border-bottom-width: 4px;
+  border-bottom-style: solid;
+}
+.tab-active {
+  color: #fd6801;
+  font-weight: 500;
+}
+.tab-muted {
+  color: #6c757d;
+}
+.border-main {
+  border-bottom-color: #fd6801;
+}
+.border-bottom-0 {
+  border-bottom-width: 0;
+}
+</style>

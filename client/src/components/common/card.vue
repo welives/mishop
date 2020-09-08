@@ -3,7 +3,7 @@
     <!-- 头部 -->
     <view v-if="showHead" class="px-2 py-1">
       <slot name="head">
-        <text class="font-md font-weight-bold">{{ title }}</text>
+        <text class="font-md font-weight-bold my-1">{{ title }}</text>
       </slot>
     </view>
     <!-- 内容 -->

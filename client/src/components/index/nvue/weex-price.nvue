@@ -1,0 +1,40 @@
+<template>
+  <div style="flex-direction: row;">
+    <text v-if="isSales" class="symbol" style="align-self: flex-start">{{ currency }}</text>
+    <text class="sales"><slot /></text>
+    <text v-if="price" class="price" style="align-self: flex-end">{{ currency }}{{ price }}</text>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    isSales: {
+      type: Boolean,
+      default: true,
+    },
+    price: [Number, String],
+    currency: {
+      type: String,
+      default: '￥',
+    },
+  },
+}
+</script>
+
+<style scoped>
+.symbol {
+  font-size: 20px;
+  color: #fd6801;
+}
+.sales {
+  font-size: 35px;
+  color: #fd6801;
+}
+.price {
+  margin-left: 20px;
+  font-size: 25px;
+  color: #a9a5a0;
+  text-decoration: line-through;
+}
+</style>

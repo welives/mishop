@@ -50,7 +50,6 @@
             <!-- <card title="每日精选" :bodyCover="$conf.ossUrl + '/demo4.jpg'" /> -->
             <!-- 商品列表 -->
             <template v-if="list.type === 'goodsList' && list.data.length">
-              {{ list.data.length }}
               <view class="flex flex-wrap justify-between">
                 <block v-for="(goods, goodsIndex) in list.data" :key="goodsIndex">
                   <goods-list :goods="goods" :index="goodsIndex" />

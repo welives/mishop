@@ -1,0 +1,29 @@
+<template>
+  <div class="threeAd">
+    <!-- 左 -->
+    <image style="width: 374px; height: 530px;" :src="threeAd.left.src" />
+    <!-- 右 -->
+    <div>
+      <image style="width: 374px; height: 264px" :src="threeAd.rightTop.src" />
+      <div style="flex:1"></div>
+      <image style="width: 374px; height: 264px;" :src="threeAd.rightBottom.src" />
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    threeAd: Object,
+  },
+}
+</script>
+
+<style scoped>
+.threeAd {
+  width: 750px;
+  height: 530px;
+  flex-direction: row;
+  justify-content: space-between;
+}
+</style>

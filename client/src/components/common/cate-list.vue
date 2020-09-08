@@ -1,7 +1,7 @@
 <template>
-  <view class="flex-column flex align-center justify-center my-1" style="width: 20%;" @click.stop="onClick">
+  <view class="flex flex-column align-center justify-center my-1" :style="cateWidth" @click.stop="onClick">
     <image style="width: 60rpx; height: 60rpx;" :src="cate.src" mode="" />
-    <text class="font-sm text-muted">{{ cate.name }}</text>
+    <text class="font-sm text-muted text-mt-1">{{ cate.name }}</text>
   </view>
 </template>
 
@@ -10,6 +10,15 @@ export default {
   props: {
     cate: Object,
     index: Number,
+  },
+  computed: {
+    cateWidth() {
+      let width = `width: 20%;`
+      // #ifdef APP-PLUS-NVUE
+      width = `width: ${710 / 5}rpx;`
+      // #endif
+      return width
+    },
   },
   methods: {
     onClick() {
@@ -22,4 +31,10 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+/* #ifdef APP-PLUS-NVUE */
+.text-mt-1 {
+  margin-top: 10rpx;
+}
+/* #endif */
+</style>

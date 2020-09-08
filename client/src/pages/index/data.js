@@ -60,6 +60,10 @@ export default {
     rightTop: { src: `${$conf.ossUrl}/demo22.jpg` },
     rightBottom: { src: `${$conf.ossUrl}/demo3.jpg` },
   },
+  bigAd: {
+    title: '每日精选',
+    cover: `${$conf.ossUrl}/demo4.jpg`,
+  },
   goodsList: [
     {
       id: 1,

@@ -53,12 +53,6 @@
 .iconfont {
   font-family: iconfont;
 }
-.view,
-.text {
-  font-size: 28rpx;
-  line-height: 1.8;
-  color: #0e151d;
-}
 
 /* #ifndef APP-PLUS-NVUE */
 /* 宽度 */
@@ -1061,6 +1055,9 @@
   /* #ifndef APP-PLUS-NVUE */
   border-color: var(--white);
   /* #endif */
+}
+.border-transparent {
+  border-color: transparent;
 }
 
 /* 圆角 */

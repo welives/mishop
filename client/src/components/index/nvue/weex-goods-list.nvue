@@ -1,0 +1,37 @@
+<template>
+  <div>
+    <image class="image" :src="goods.cover" />
+    <div style="padding: 20px;">
+      <text style="font-size: 35px;">{{ goods.title }}</text>
+      <text class="desc">{{ goods.desc }}</text>
+      <weex-price :price="goods.price">{{ goods.sales }}</weex-price>
+    </div>
+  </div>
+</template>
+
+<script>
+import weexPrice from '@/components/index/nvue/weex-price'
+export default {
+  components: {
+    weexPrice,
+  },
+  props: {
+    goods: Object,
+    index: Number,
+  },
+}
+</script>
+
+<style scoped>
+.image {
+  width: 373px;
+  height: 300px;
+  border-radius: 15px;
+}
+.desc {
+  font-size: 25px;
+  color: #a9a5a0;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+</style>

@@ -21,7 +21,7 @@
       <view class="flex-fill"></view>
       <image
         class="flex-shrink-0"
-        style="width: 373rpx; height: 263rpx;"
+        style="width: 374rpx; height: 263rpx;"
         :src="threeAd.rightBottom.src"
         mode="aspectFill"
         lazy-load

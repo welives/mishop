@@ -1,23 +1,300 @@
 <template>
-  <view>
-    <carousel :carousel="carousel"></carousel>
-  </view>
+  <div>
+    <!-- 顶部选项卡 开始 -->
+    <weex-tabbar :tabBars="tabBars" :tabIndex="tabIndex" @change="tabChange" />
+    <!-- 顶部选项卡 结束 -->
+
+    <!-- 横向滚动列表 开始 -->
+    <slider style="flex: 1;" :index="tabIndex" :infinite="false" @change="changeSlider">
+      <list :show-scrollbar="false" v-for="(list, listIndex) in dataList" :key="listIndex">
+        <!-- 下拉刷新 -->
+        <refresh
+          class="refresh"
+          :display="refresh.isShow ? 'show' : 'hide'"
+          @refresh="onRefresh"
+          @pullingdown="onPullingDown"
+        >
+          <text class="refresh-text">{{ refresh[refresh.type] }}</text>
+        </refresh>
+        <!-- 首屏模板 -->
+        <template v-if="listIndex === 0">
+          <cell v-for="(item, index) in list.data" :key="index">
+            <!-- 轮播图 -->
+            <template v-if="item.type === 'carousel' && item.data.length">
+              <weex-carousel :carousel="item.data" />
+            </template>
+            <!-- 图标分类 -->
+            <template v-else-if="item.type === 'cate' && item.data.length">
+              <weex-cate-list :cateList="item.data" />
+              <div class="divider" />
+            </template>
+            <!-- 三图广告位 -->
+            <template v-else-if="item.type === 'threeAd'">
+              <weex-three-ad :threeAd="item.data" />
+              <div class="divider" />
+            </template>
+            <!-- 大图广告位 -->
+            <template v-else-if="item.type === 'bigAd'">
+              <weex-big-ad :title="item.data.title" :cover="item.data.cover" />
+            </template>
+            <!-- 商品列表 -->
+            <template v-else-if="item.type === 'goodsList' && item.data.length">
+              <div class="goods-container">
+                <block v-for="(goods, goodsIndex) in item.data" :key="goodsIndex">
+                  <weex-goods-list :goods="goods" :index="goodsIndex" />
+                </block>
+              </div>
+            </template>
+          </cell>
+        </template>
+        <!-- 专题页模板 -->
+        <template v-else>
+          <cell v-for="(item, index) in list.data" :key="index">
+            <!-- 轮播图 -->
+            <template v-if="item.type === 'carousel' && item.data.length">
+              <weex-carousel :carousel="item.data" />
+            </template>
+            <!-- 图标分类 -->
+            <template v-else-if="item.type === 'cate' && item.data.length">
+              <weex-cate-list :cateList="item.data" />
+              <div class="divider" />
+            </template>
+            <!-- 大图广告位 -->
+            <template v-else-if="item.type === 'bigAd'">
+              <weex-big-ad :title="item.data.title" />
+            </template>
+            <!-- 商品列表 -->
+            <template v-else-if="item.type === 'goodsList' && item.data.length">
+              <div class="goods-container">
+                <block v-for="(goods, goodsIndex) in item.data" :key="goodsIndex">
+                  <weex-goods-list :goods="goods" :index="goodsIndex" />
+                </block>
+              </div>
+            </template>
+          </cell>
+        </template>
+        <!-- 上拉加载 -->
+        <loading class="loading" :display="loading.isShow ? 'show' : 'hide'" @loading="onLoading(listIndex)">
+          <text class="load-text">{{ loading[loading.type] }}</text>
+        </loading>
+      </list>
+    </slider>
+    <!-- 横向滚动列表 结束 -->
+  </div>
 </template>
 
 <script>
-  import demo from './data'
-  import carousel from '@/components/common/carousel'
-  export default {
-    components: {
-      carousel,
+import demo from './data'
+import weexTabbar from '@/components/index/nvue/weex-tabbar'
+import weexCarousel from '@/components/index/nvue/weex-carousel'
+import weexCateList from '@/components/index/nvue/weex-cate-list'
+import weexThreeAd from '@/components/index/nvue/weex-three-ad'
+import weexBigAd from '@/components/index/nvue/weex-big-ad'
+import weexGoodsList from '@/components/index/nvue/weex-goods-list'
+export default {
+  components: {
+    weexTabbar,
+    weexCarousel,
+    weexCateList,
+    weexThreeAd,
+    weexBigAd,
+    weexGoodsList,
+  },
+  data() {
+    return {
+      tabIndex: 0,
+      tabBars: [],
+      dataList: [],
+    }
+  },
+  computed: {
+    refresh() {
+      return this.dataList[this.tabIndex].refresh
     },
-    data() {
-      return {
-        carousel: demo.carousel,
+    loading() {
+      return this.dataList[this.tabIndex].loading
+    },
+  },
+  onLoad() {
+    this.__init()
+  },
+  methods: {
+    __init() {
+      // 获取选项卡数据
+      this.tabBars = demo.tabBars.map((v) => {
+        return { ...v }
+      })
+      // 根据选项卡生成页面数据
+      this.dataList = this.tabBars.map((item, index) => {
+        let data = []
+        // 获取首屏数据
+        if (index === 0) {
+          data = [
+            {
+              type: 'carousel',
+              data: demo.carousel.map((v) => {
+                return { ...v }
+              }),
+            },
+            {
+              type: 'cate',
+              data: demo.cateList.map((v) => {
+                return { ...v }
+              }),
+            },
+            {
+              type: 'threeAd',
+              data: { ...demo.threeAd },
+            },
+            {
+              type: 'bigAd',
+              data: { ...demo.bigAd },
+            },
+            {
+              type: 'goodsList',
+              data: demo.goodsList.map((v) => {
+                return { ...v }
+              }),
+            },
+          ]
+        }
+        return {
+          ...item,
+          data,
+          refresh: {
+            isShow: false,
+            type: 'ready',
+            ready: '下拉可刷新',
+            doing: '刷新中...',
+            done: '释放即刷新',
+          },
+          loading: {
+            isShow: false,
+            type: 'ready',
+            ready: '上拉加载更多',
+            doing: '加载中...',
+            done: '真的一滴都没有了',
+          },
+        }
+      })
+    },
+    // 加载专题页数据
+    loadData() {
+      let index = this.tabIndex
+      if (this.dataList[index].data.length) return
+      let data = [
+        {
+          type: 'carousel',
+          data: demo.carousel.map((v) => {
+            return { ...v }
+          }),
+        },
+        {
+          type: 'cate',
+          data: demo.cateList.filter((v, i) => {
+            if (i < 5) {
+              return { ...v }
+            }
+          }),
+        },
+        {
+          type: 'bigAd',
+          data: { title: '热卖爆品' },
+        },
+        {
+          type: 'goodsList',
+          data: demo.goodsList.map((v) => {
+            return { ...v }
+          }),
+        },
+      ]
+      this.dataList[index].data = [...this.dataList[index].data, ...data]
+    },
+    // 切换选项卡
+    tabChange(index) {
+      this.tabIndex = index
+      this.loadData()
+    },
+    // slider组件左右切换
+    changeSlider(e) {
+      this.tabChange(e.index)
+    },
+    // 执行刷新
+    onRefresh() {
+      if (this.refresh.type === 'doing') return
+      this.refresh.isShow = true
+      this.refresh.type = 'doing'
+      setTimeout(() => {
+        // 加载数据
+        this.__init()
+        this.loadData()
+        this.refresh.isShow = false
+        this.refresh.type = 'ready'
+      }, 500)
+    },
+    // 下拉距离
+    onPullingDown(e) {
+      if (this.refresh.isShow) return
+      this.refresh.type = e.pullingDistance > e.viewHeight ? 'done' : 'ready'
+    },
+    // 上拉加载事件
+    onLoading(index) {
+      console.log(this.loading.type)
+      if (this.loading.type !== 'done') {
+        if (this.loading.type === 'doing') return
+        this.loading.isShow = true
+        this.loading.type = 'doing'
+        setTimeout(() => {
+          // 加载数据
+          this.loadMore(index)
+          this.loading.isShow = false
+        }, 1500)
       }
     },
-    methods: {},
-  }
+    // 加载更多商品
+    loadMore(index) {
+      let goodsIndex = this.dataList[index].data.findIndex((v) => v.type === 'goodsList')
+      let goodsList = this.dataList[index].data[goodsIndex]
+      goodsList.data = [...goodsList.data, ...goodsList.data]
+      // 模拟数据超过20条时终止执行
+      this.loading.type = goodsList.data.length > 20 ? 'done' : 'ready'
+    },
+  },
+}
 </script>
 
-<style scoped></style>
+<style scoped>
+.divider {
+  width: 750px;
+  height: 15px;
+  background-color: #f5f5f4;
+}
+.goods-container {
+  width: 750px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.refresh {
+  width: 750px;
+  height: 80px;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.02);
+}
+.refresh-text {
+  font-size: 30px;
+  color: #a9a5a0;
+}
+.loading {
+  width: 750px;
+  height: 80px;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.02);
+}
+.load-text {
+  font-size: 30px;
+  color: #a9a5a0;
+}
+</style>
