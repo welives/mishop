@@ -1,7 +1,9 @@
 <template>
   <div style="flex-direction: row;">
     <text v-if="isSales" class="symbol" style="align-self: flex-start">{{ currency }}</text>
-    <text class="sales"><slot /></text>
+    <slot>
+      <text v-if="sales" class="sales">{{ sales }}</text>
+    </slot>
     <text v-if="price" class="price" style="align-self: flex-end">{{ currency }}{{ price }}</text>
   </div>
 </template>
@@ -13,6 +15,7 @@ export default {
       type: Boolean,
       default: true,
     },
+    sales: [Number, String],
     price: [Number, String],
     currency: {
       type: String,

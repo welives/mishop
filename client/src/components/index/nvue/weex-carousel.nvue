@@ -1,39 +1,26 @@
 <template>
-  <div>
-    <slider class="carousel" :auto-play="true">
-      <div v-for="(item, index) in carousel" :key="index">
-        <image class="image" :src="item.src" resize="cover" />
-      </div>
-      <indicator class="indicator"></indicator>
-    </slider>
+  <div @click.stop="onClick">
+    <image class="image" :src="carousel.src" resize="cover" />
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    carousel: Array,
+    carousel: Object,
+    index: Number,
+  },
+  methods: {
+    onClick() {
+      console.log('点击了轮播图')
+    },
   },
 }
 </script>
 
 <style scoped>
-.carousel {
-  width: 750px;
-  height: 300px;
-}
 .image {
   width: 750px;
   height: 300px;
-}
-.indicator {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 150px;
-  height: 50px;
-  item-color: rgba(0, 0, 0, 0.2);
-  item-selected-color: #fd6801;
-  item-size: 15px;
 }
 </style>

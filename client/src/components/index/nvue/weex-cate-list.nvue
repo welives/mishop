@@ -1,27 +1,28 @@
 <template>
-  <div class="cate-container">
-    <div class="cate-item" v-for="(item, index) in cateList" :key="index">
-      <image class="image" :src="item.src" />
-      <text class="text">{{ item.name }}</text>
-    </div>
+  <div class="cate-item" @click.stop="onClick">
+    <image class="image" :src="cate.src" />
+    <text class="text">{{ cate.name }}</text>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    cateList: Array,
+    cate: Object,
+    index: Number,
+  },
+  methods: {
+    onClick() {
+      uni.showToast({
+        title: '点击了' + this.cate.name,
+        icon: 'none',
+      })
+    },
   },
 }
 </script>
 
 <style scoped>
-.cate-container {
-  width: 750px;
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding: 20px;
-}
 .cate-item {
   width: 141.5px;
   align-items: center;

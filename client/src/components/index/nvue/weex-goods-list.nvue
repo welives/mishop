@@ -4,7 +4,7 @@
     <div style="padding: 20px;">
       <text style="font-size: 35px;">{{ goods.title }}</text>
       <text class="desc">{{ goods.desc }}</text>
-      <weex-price :price="goods.price">{{ goods.sales }}</weex-price>
+      <weex-price :price="goods.price" :sales="goods.sales" />
     </div>
   </div>
 </template>

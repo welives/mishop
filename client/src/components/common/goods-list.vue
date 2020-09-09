@@ -4,9 +4,7 @@
     <view class="flex flex-column desc">
       <text class="font-md">{{ goods.title }}</text>
       <text class="font-sm text-light-muted text-my-1">{{ goods.desc }}</text>
-      <price :price="goods.price">
-        <text class="text-main">{{ goods.sales }}</text>
-      </price>
+      <price :price="goods.price" :sales="goods.sales" />
     </view>
   </view>
 </template>

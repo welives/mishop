@@ -1,7 +1,7 @@
 <template>
   <div style="width: 750px;">
     <!-- 头部 -->
-    <div v-if="showTitle" class="title">
+    <div v-if="showHead" class="title">
       <slot name="title">
         <text class="text">{{ title }}</text>
       </slot>
@@ -18,7 +18,7 @@
 export default {
   props: {
     // 是否显示头部
-    showTitle: {
+    showHead: {
       type: Boolean,
       default: true,
     },

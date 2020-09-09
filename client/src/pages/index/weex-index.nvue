@@ -5,7 +5,7 @@
     <!-- 顶部选项卡 结束 -->
 
     <!-- 横向滚动列表 开始 -->
-    <slider style="flex: 1;" :index="tabIndex" :infinite="false" @change="changeSlider">
+    <slider style="flex: 1;" :index="tabIndex" :infinite="false" @change="sliderChange">
       <list :show-scrollbar="false" v-for="(list, listIndex) in dataList" :key="listIndex">
         <!-- 下拉刷新 -->
         <refresh
@@ -16,63 +16,43 @@
         >
           <text class="refresh-text">{{ refresh[refresh.type] }}</text>
         </refresh>
-        <!-- 首屏模板 -->
-        <template v-if="listIndex === 0">
-          <cell v-for="(item, index) in list.data" :key="index">
-            <!-- 轮播图 -->
-            <template v-if="item.type === 'carousel' && item.data.length">
-              <weex-carousel :carousel="item.data" />
-            </template>
-            <!-- 图标分类 -->
-            <template v-else-if="item.type === 'cate' && item.data.length">
-              <weex-cate-list :cateList="item.data" />
-              <div class="divider" />
-            </template>
-            <!-- 三图广告位 -->
-            <template v-else-if="item.type === 'threeAd'">
-              <weex-three-ad :threeAd="item.data" />
-              <div class="divider" />
-            </template>
-            <!-- 大图广告位 -->
-            <template v-else-if="item.type === 'bigAd'">
-              <weex-big-ad :title="item.data.title" :cover="item.data.cover" />
-            </template>
-            <!-- 商品列表 -->
-            <template v-else-if="item.type === 'goodsList' && item.data.length">
-              <div class="goods-container">
-                <block v-for="(goods, goodsIndex) in item.data" :key="goodsIndex">
-                  <weex-goods-list :goods="goods" :index="goodsIndex" />
-                </block>
-              </div>
-            </template>
-          </cell>
-        </template>
-        <!-- 专题页模板 -->
-        <template v-else>
-          <cell v-for="(item, index) in list.data" :key="index">
-            <!-- 轮播图 -->
-            <template v-if="item.type === 'carousel' && item.data.length">
-              <weex-carousel :carousel="item.data" />
-            </template>
-            <!-- 图标分类 -->
-            <template v-else-if="item.type === 'cate' && item.data.length">
-              <weex-cate-list :cateList="item.data" />
-              <div class="divider" />
-            </template>
-            <!-- 大图广告位 -->
-            <template v-else-if="item.type === 'bigAd'">
-              <weex-big-ad :title="item.data.title" />
-            </template>
-            <!-- 商品列表 -->
-            <template v-else-if="item.type === 'goodsList' && item.data.length">
-              <div class="goods-container">
-                <block v-for="(goods, goodsIndex) in item.data" :key="goodsIndex">
-                  <weex-goods-list :goods="goods" :index="goodsIndex" />
-                </block>
-              </div>
-            </template>
-          </cell>
-        </template>
+        <cell v-for="(item, index) in list.data" :key="index">
+          <!-- 轮播图 -->
+          <template v-if="item.type === 'carousel' && item.data.length">
+            <slider class="carousel" :auto-play="true">
+              <block v-for="(carousel, carouselIndex) in item.data" :key="carouselIndex">
+                <weex-carousel :carousel="carousel" :index="carouselIndex" />
+              </block>
+              <indicator class="indicator"></indicator>
+            </slider>
+          </template>
+          <!-- 图标分类 -->
+          <template v-else-if="item.type === 'cate' && item.data.length">
+            <div class="cate-container">
+              <block v-for="(cate, cateIndex) in item.data" :key="cateIndex">
+                <weex-cate-list :cate="cate" :index="cateIndex" />
+              </block>
+            </div>
+            <div class="divider" />
+          </template>
+          <!-- 三图广告位 -->
+          <template v-else-if="item.type === 'threeAd'">
+            <weex-three-ad :threeAd="item.data" />
+            <div class="divider" />
+          </template>
+          <!-- 大图广告位 -->
+          <template v-else-if="item.type === 'bigAd'">
+            <weex-big-ad :title="item.data.title" :cover="item.data.cover" />
+          </template>
+          <!-- 商品列表 -->
+          <template v-else-if="item.type === 'goodsList' && item.data.length">
+            <div class="goods-container">
+              <block v-for="(goods, goodsIndex) in item.data" :key="goodsIndex">
+                <weex-goods-list :goods="goods" :index="goodsIndex" />
+              </block>
+            </div>
+          </template>
+        </cell>
         <!-- 上拉加载 -->
         <loading class="loading" :display="loading.isShow ? 'show' : 'hide'" @loading="onLoading(listIndex)">
           <text class="load-text">{{ loading[loading.type] }}</text>
@@ -216,7 +196,7 @@ export default {
       this.loadData()
     },
     // slider组件左右切换
-    changeSlider(e) {
+    sliderChange(e) {
       this.tabChange(e.index)
     },
     // 执行刷新
@@ -267,6 +247,26 @@ export default {
   width: 750px;
   height: 15px;
   background-color: #f5f5f4;
+}
+.carousel {
+  width: 750px;
+  height: 300px;
+}
+.indicator {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 150px;
+  height: 50px;
+  item-color: rgba(0, 0, 0, 0.2);
+  item-selected-color: #fd6801;
+  item-size: 15px;
+}
+.cate-container {
+  width: 750px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 20px;
 }
 .goods-container {
   width: 750px;
