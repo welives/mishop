@@ -5,12 +5,13 @@
       class="scroll-row border-bottom border-light-secondary"
       style="height: 80rpx;"
       scroll-x
-      :scroll-into-view="scrollTabInto"
       scroll-with-animation
+      :scroll-into-view="scrollTabInto"
+      :show-scrollbar="false"
     >
       <view
         class="scroll-row-item px-3 py-1"
-        :id="'tab_' + item.id"
+        :id="'tab_' + index"
         :class="tabIndex === index ? 'text-main font' : ''"
         v-for="(item, index) in tabBars"
         :key="index"
@@ -25,37 +26,45 @@
 
     <!-- 滑块内容区 开始 -->
     <swiper :current="tabIndex" :duration="300" :style="'height: ' + scrollHeight + 'px;'" @change="changeSwiper">
-      <swiper-item v-for="(item, index) in dataList" :key="index">
-        <scroll-view class="animated fadeIn" style="height: 100%;" scroll-y @scrolltolower="loadMore(index)">
-          <block v-for="(list, idx) in item.list" :key="idx">
+      <swiper-item v-for="(list, listIndex) in dataList" :key="listIndex">
+        <scroll-view
+          class="animated fadeIn"
+          style="height: 100%;"
+          scroll-y
+          :show-scrollbar="false"
+          @scrolltolower="loadMore(listIndex)"
+        >
+          <block v-for="(item, index) in list.data" :key="index">
             <!-- 轮播图 -->
-            <template v-if="list.type === 'carousel' && list.data.length">
-              <carousel :carousel="list.data" />
+            <template v-if="item.type === 'carousel' && item.data.length">
+              <carousel :carousel="item.data" />
             </template>
             <!-- 分类 -->
-            <template v-if="list.type === 'cate' && list.data.length">
+            <template v-if="item.type === 'cate' && item.data.length">
               <view class="flex flex-wrap p-2">
-                <block v-for="(cate, cateIndex) in list.data" :key="cateIndex">
+                <block v-for="(cate, cateIndex) in item.data" :key="cateIndex">
                   <cate-list :cate="cate" :index="cateIndex" />
                 </block>
               </view>
               <view class="divider" />
             </template>
             <!-- 三图广告位 -->
-            <template v-if="list.type === 'threeAd'">
-              <three-ad :threeAd="list.data" />
+            <template v-if="item.type === 'threeAd'">
+              <three-ad :threeAd="item.data" />
               <view class="divider" />
             </template>
             <!-- 大图广告位 -->
-            <!-- <card title="每日精选" :bodyCover="$conf.ossUrl + '/demo4.jpg'" /> -->
+            <template v-if="item.type === 'bigAd'">
+              <card :title="item.data.title" :bodyCover="item.data.cover" />
+            </template>
             <!-- 商品列表 -->
-            <template v-if="list.type === 'goodsList' && list.data.length">
+            <template v-if="item.type === 'goodsList' && item.data.length">
               <view class="flex flex-wrap justify-between">
-                <block v-for="(goods, goodsIndex) in list.data" :key="goodsIndex">
+                <block v-for="(goods, goodsIndex) in item.data" :key="goodsIndex">
                   <goods-list :goods="goods" :index="goodsIndex" />
                 </block>
               </view>
-              <load-more :loadText="list.data.length > limit ? load.text[list.load] : load.text[2]"></load-more>
+              <load-more :loadText="loading[loading.type]"></load-more>
             </template>
           </block>
         </scroll-view>
@@ -68,14 +77,12 @@
 <script>
 // 测试数据
 import demo from './data.js'
-
 import carousel from '@/components/common/carousel'
 import cateList from '@/components/common/cate-list'
 import threeAd from '@/components/index/three-ad'
 import card from '@/components/common/card'
 import goodsList from '@/components/common/goods-list'
 import loadMore from '@/components/common/load-more'
-import common from '@/common/mixins/common'
 export default {
   components: {
     carousel,
@@ -85,7 +92,6 @@ export default {
     goodsList,
     loadMore,
   },
-  mixins: [common],
   data() {
     return {
       scrollHeight: 600,
@@ -95,13 +101,21 @@ export default {
       dataList: [],
     }
   },
+  computed: {
+    loading() {
+      return this.dataList[this.tabIndex].loading
+    },
+  },
   onLoad() {
     const res = uni.getSystemInfoSync()
     this.scrollHeight = res.windowHeight - uni.upx2px(80)
     this.__init()
   },
+  // 下拉刷新事件
   onPullDownRefresh() {
     setTimeout(() => {
+      this.__init()
+      this.loadData()
       uni.stopPullDownRefresh()
     }, 500)
   },
@@ -114,12 +128,10 @@ export default {
       })
       // 根据选项卡生成页面数据
       this.dataList = this.tabBars.map((item, index) => {
-        let list = []
+        let data = []
         // 获取首屏数据
         if (index === 0) {
-          // 设置首屏的上拉状态
-          // this.load.type = demo.goodsList.length > 10 ? 0 : 2
-          list = [
+          data = [
             {
               type: 'carousel',
               data: demo.carousel.map((v) => {
@@ -137,39 +149,46 @@ export default {
               data: { ...demo.threeAd },
             },
             {
+              type: 'bigAd',
+              data: { ...demo.bigAd },
+            },
+            {
               type: 'goodsList',
               data: demo.goodsList.map((v) => {
                 return { ...v }
               }),
-              load: this.load.type,
             },
           ]
         }
         return {
           ...item,
-          list,
+          data,
+          loading: {
+            type: 'ready',
+            ready: '上拉加载更多',
+            doing: '加载中...',
+            done: '真的一滴都没有了',
+          },
         }
       })
     },
     // 切换选项卡
     changeTab(index) {
       if (this.tabIndex === index) return
-      this.load.type = 0
       this.tabIndex = index
       // 滚动到指定选项卡位置
-      this.scrollTabInto = 'tab_' + this.tabBars[index].id
-      this.addData(index)
+      this.scrollTabInto = 'tab_' + index
+      this.loadData()
     },
     // swiper组件左右切换
     changeSwiper(e) {
       this.changeTab(e.detail.current)
     },
-    // 加载数据
-    addData(index) {
-      if (this.dataList[index].list.length) return
-      // 设置当前tab页的上拉状态
-      // this.load.type = demo.goodsList.length > 10 ? 0 : 2
-      let list = [
+    // 加载专题页数据
+    loadData() {
+      let index = this.tabIndex
+      if (this.dataList[index].data.length) return
+      let data = [
         {
           type: 'carousel',
           data: demo.carousel.map((v) => {
@@ -178,39 +197,41 @@ export default {
         },
         {
           type: 'cate',
-          data: demo.cateList.map((v) => {
-            return { ...v }
+          data: demo.cateList.filter((v, i) => {
+            if (i < 5) {
+              return { ...v }
+            }
           }),
         },
         {
-          type: 'threeAd',
-          data: { ...demo.threeAd },
+          type: 'bigAd',
+          data: { title: '热卖爆品' },
         },
         {
           type: 'goodsList',
           data: demo.goodsList.map((v) => {
             return { ...v }
           }),
-          load: this.load.type,
         },
       ]
-      this.dataList[index].list = list
+      this.dataList[index].data = [...this.dataList[index].data, ...data]
     },
     // 上拉加载更多
     loadMore(index) {
-      let goodsIndex = this.dataList[index].list.findIndex((v) => v.type === 'goodsList')
-      let list = this.dataList[index].list[goodsIndex]
-      if (list.load !== 2) {
-        if (list.load === 1) return
+      if (this.loading.type !== 'done') {
+        if (this.loading.type === 'doing') return
+        let goodsIndex = this.dataList[index].data.findIndex((v) => v.type === 'goodsList')
+        let goodsList = this.dataList[index].data[goodsIndex]
+        this.loading.type = 'doing'
         setTimeout(() => {
-          list.load = 1
-          list.data = [...list.data, ...list.data]
-          list.load = 0
-        }, 500)
+          goodsList.data = [...goodsList.data, ...goodsList.data]
+          // 模拟数据超过20条时不能再加载
+          this.loading.type = goodsList.data.length > 20 ? 'done' : 'ready'
+        }, 1500)
       }
     },
   },
 }
 </script>
 
-<style></style>
+<style scoped></style>
