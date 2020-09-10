@@ -1,7 +1,7 @@
 /* #ifndef APP-PLUS-NVUE */
 :root {
   --main: #fd6801;
-  --main-hover: #f77417;
+  --main-hover: #d85b01;
   --main-disabled: #f8b88b;
 }
 /* #endif */
@@ -14,7 +14,7 @@
   /* #endif */
 }
 .text-hover-main {
-  color: #f77417 !important;
+  color: #d85b01 !important;
   /* #ifndef APP-PLUS-NVUE */
   color: var(--main-hover) !important;
   /* #endif */
@@ -28,7 +28,7 @@
   /* #endif */
 }
 .bg-hover-main {
-  background-color: #f77417 !important;
+  background-color: #d85b01 !important;
   /* #ifndef APP-PLUS-NVUE */
   background-color: var(--main-hover) !important;
   /* #endif */
@@ -50,5 +50,11 @@
 
 /* 行高 */
 .line-h {
+  line-height: 1.5;
+}
+.line-h-0 {
+  line-height: 0;
+}
+.line-h-1 {
   line-height: 1;
 }

@@ -2,8 +2,6 @@ import $time from '../js/time'
 export default {
   data() {
     return {
-      // 上拉加载的三种文字状态
-      load: { type: 0, text: ['上拉加载更多...', '加载中...', '真的一滴都没有了'] },
       page: 1, // 当前分页
       limit: 10, // 每页显示数据条数
       limits: [5, 7, 10, 13, 15], // 可选的每页显示数据条数

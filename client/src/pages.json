@@ -69,6 +69,37 @@
       "style": {
         "navigationBarTitleText": "我的"
       }
+    },
+    {
+      "path": "pages/search/search",
+      "style": {
+        "navigationBarTitleText": "搜索",
+        "app-plus": {
+          // 取消iOS端软键盘上方横条
+          "scrollIndicator": "none",
+          "bounce": "none",
+          "titleNView": {
+            "searchInput": {
+              "align": "center",
+              "backgroundColor": "#f7f7f7",
+              "borderRadius": "4px",
+              // 原生导航栏上的搜索框禁止输入
+              "placeholder": "搜索",
+              "placeholderColor": "#cccccc"
+            },
+            "buttons": [
+              {
+                "color": "#989898",
+                "colorPressed": "#fd6801",
+                "float": "right",
+                "fontSize": "15px",
+                "text": "搜索",
+                "width": "44px"
+              }
+            ]
+          }
+        }
+      }
     }
   ],
   "globalStyle": {

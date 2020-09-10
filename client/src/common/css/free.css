@@ -3,19 +3,19 @@
   --primary: #007bff;
   --primary-hover: #0062cc;
   --secondary: #6c757d;
-  --secondary-hvoer: #494f54;
+  --secondary-hvoer: #666c72;
   --success: #28a745;
-  --success-hover: #19692c;
+  --success-hover: #2b9744;
   --danger: #dc3545;
-  --danger-hover: #a71d2a;
+  --danger-hover: #c4414e;
   --warning: #ffc107;
-  --warning-hover: #ba8b00;
+  --warning-hover: #f0b60b;
   --info: #17a2b8;
-  --info-hover: #0f6674;
+  --info-hover: #1c96a8;
   --light: #f8f9fa;
-  --light-hover: #cbd3da;
+  --light-hover: #eeeff0;
   --dark: #343a40;
-  --dark-hover: #121416;
+  --dark-hover: #262c31;
   --muted: #6c757d;
   --white: #fff;
 }
@@ -742,7 +742,7 @@
   /* #endif */
 }
 .text-hover-primary {
-  color: #0056b3;
+  color: #0062cc;
   /* #ifndef APP-PLUS-NVUE */
   color: var(--primary-hover);
   /* #endif */
@@ -754,7 +754,7 @@
   /* #endif */
 }
 .text-hover-secondary {
-  color: #494f54;
+  color: #666c72;
   /* #ifndef APP-PLUS-NVUE */
   color: var(--secondary-hvoer);
   /* #endif */
@@ -766,7 +766,7 @@
   /* #endif */
 }
 .text-hover-success {
-  color: #19692c;
+  color: #2b9744;
   /* #ifndef APP-PLUS-NVUE */
   color: var(--success-hover);
   /* #endif */
@@ -778,7 +778,7 @@
   /* #endif */
 }
 .text-hover-info {
-  color: #0f6674;
+  color: #1c96a8;
   /* #ifndef APP-PLUS-NVUE */
   color: var(--info-hover);
   /* #endif */
@@ -790,7 +790,7 @@
   /* #endif */
 }
 .text-hover-warning {
-  color: #ba8b00;
+  color: #f0b60b;
   /* #ifndef APP-PLUS-NVUE */
   color: var(--warning-hover);
   /* #endif */
@@ -802,7 +802,7 @@
   /* #endif */
 }
 .text-hover-danger {
-  color: #a71d2a;
+  color: #c4414e;
   /* #ifndef APP-PLUS-NVUE */
   color: var(--danger-hover);
   /* #endif */
@@ -814,7 +814,7 @@
   /* #endif */
 }
 .text-hover-light {
-  color: #cbd3da;
+  color: #eeeff0;
   /* #ifndef APP-PLUS-NVUE */
   color: var(--light-hover);
   /* #endif */
@@ -826,7 +826,7 @@
   /* #endif */
 }
 .text-hover-dark {
-  color: #121416;
+  color: #262c31;
   /* #ifndef APP-PLUS-NVUE */
   color: var(--dark-hover);
   /* #endif */
@@ -871,7 +871,7 @@
   /* #endif */
 }
 .bg-hover-secondary {
-  background-color: #545b62;
+  background-color: #666c72;
   /* #ifndef APP-PLUS-NVUE */
   background-color: var(--secondary-hvoer);
   /* #endif */
@@ -883,7 +883,7 @@
   /* #endif */
 }
 .bg-hover-success {
-  background-color: #1e7e34;
+  background-color: #2b9744;
   /* #ifndef APP-PLUS-NVUE */
   background-color: var(--success-hover);
   /* #endif */
@@ -895,7 +895,7 @@
   /* #endif */
 }
 .bg-hover-info {
-  background-color: #117a8b;
+  background-color: #1c96a8;
   /* #ifndef APP-PLUS-NVUE */
   background-color: var(--info-hover);
   /* #endif */
@@ -907,7 +907,7 @@
   /* #endif */
 }
 .bg-hover-warning {
-  background-color: #d39e00;
+  background-color: #f0b60b;
   /* #ifndef APP-PLUS-NVUE */
   background-color: var(--warning-hover);
   /* #endif */
@@ -919,7 +919,7 @@
   /* #endif */
 }
 .bg-hover-danger {
-  background-color: #bd2130;
+  background-color: #c4414e;
   /* #ifndef APP-PLUS-NVUE */
   background-color: var(--danger-hover);
   /* #endif */
@@ -931,7 +931,7 @@
   /* #endif */
 }
 .bg-hover-light {
-  background-color: #dae0e5;
+  background-color: #eeeff0;
   /* #ifndef APP-PLUS-NVUE */
   background-color: var(--light-hover);
   /* #endif */
@@ -943,7 +943,7 @@
   /* #endif */
 }
 .bg-hover-dark {
-  background-color: #1d2124;
+  background-color: #262c31;
   /* #ifndef APP-PLUS-NVUE */
   background-color: var(--dark-hover);
   /* #endif */

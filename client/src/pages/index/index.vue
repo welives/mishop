@@ -52,12 +52,12 @@
             </template>
             <!-- 分类 -->
             <template v-if="item.type === 'cate' && item.data.length">
-              <view class="flex flex-wrap p-2">
+              <view class="flex flex-wrap p-2 border-light-secondary" :class="listIndex ? 'border-bottom' : ''">
                 <block v-for="(cate, cateIndex) in item.data" :key="cateIndex">
                   <cate-list :cate="cate" :index="cateIndex" />
                 </block>
               </view>
-              <view class="divider" />
+              <view v-if="listIndex === 0" class="divider" />
             </template>
             <!-- 三图广告位 -->
             <template v-if="item.type === 'threeAd'">
@@ -66,7 +66,7 @@
             </template>
             <!-- 大图广告位 -->
             <template v-if="item.type === 'bigAd'">
-              <card :title="item.data.title" :cover="item.data.cover" />
+              <card :title="item.data.title" :cover="item.data.cover" :headBorderBottom="false" />
             </template>
             <!-- 商品列表 -->
             <template v-if="item.type === 'goodsList' && item.data.length">
@@ -92,8 +92,9 @@ import carousel from '@/components/common/carousel'
 import cateList from '@/components/common/cate-list'
 import threeAd from '@/components/common/three-ad'
 import card from '@/components/common/card'
-import goodsList from '@/components/common/goods-list'
+import goodsList from '@/components/index/goods-list'
 import loadMore from '@/components/common/load-more'
+import common from '@/common/mixins/common'
 export default {
   components: {
     carousel,
@@ -103,6 +104,7 @@ export default {
     goodsList,
     loadMore,
   },
+  mixins: [common],
   data() {
     return {
       scrollHeight: 600,
@@ -121,6 +123,10 @@ export default {
     const res = uni.getSystemInfoSync()
     this.scrollHeight = res.windowHeight - uni.upx2px(80)
     this.__init()
+  },
+  // 原生标题栏搜索输入框点击事件
+  onNavigationBarSearchInputClicked() {
+    this.navigateTo('search')
   },
   // 下拉刷新事件
   onPullDownRefresh() {

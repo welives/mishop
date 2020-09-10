@@ -1,6 +1,6 @@
 <template>
   <view class="flex font-md">
-    <text v-if="isSales" class="text-main font-small" style="align-self: flex-start;">{{ currency }}</text>
+    <text v-if="isSales" class="text-main font-sm" style="align-self: flex-start;">{{ currency }}</text>
     <slot>
       <text v-if="sales" class="text-main">{{ sales }}</text>
     </slot>
