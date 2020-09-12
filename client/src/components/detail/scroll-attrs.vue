@@ -1,5 +1,5 @@
 <template>
-  <scroll-view class="scroll-row" scroll-x>
+  <scroll-view class="scroll-row mb-1" scroll-x>
     <block v-for="(item, index) in baseAttrs" :key="index">
       <view class="scroll-row-item" style="width: 170rpx; height: 110rpx;">
         <view class="flex flex-column align-center justify-center" style="line-height: 1.2;">

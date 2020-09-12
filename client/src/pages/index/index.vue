@@ -34,11 +34,7 @@
             </template>
             <!-- 分类 -->
             <template v-if="item.type === 'cate' && item.data.length">
-              <view class="flex flex-wrap p-2 border-light-secondary" :class="listIndex ? 'border-bottom' : ''">
-                <block v-for="(cate, cateIndex) in item.data" :key="cateIndex">
-                  <cate-list :cate="cate" :index="cateIndex" />
-                </block>
-              </view>
+              <cate-list :class="listIndex ? 'border-bottom' : ''" :cateList="item.data" />
               <view v-if="listIndex === 0" class="divider" />
             </template>
             <!-- 三图广告位 -->
@@ -52,11 +48,7 @@
             </template>
             <!-- 商品列表 -->
             <template v-if="item.type === 'goodsList' && item.data.length">
-              <view class="flex flex-wrap justify-between">
-                <block v-for="(goods, goodsIndex) in item.data" :key="goodsIndex">
-                  <goods-list :goods="goods" :index="goodsIndex" />
-                </block>
-              </view>
+              <goods-list :goodsList="item.data" />
               <load-more :loadText="loading[loading.type]"></load-more>
             </template>
           </block>
@@ -69,7 +61,7 @@
 
 <script>
 // 测试数据
-import demo from './data.js'
+import demo from './demo.js'
 import carousel from '@/components/common/carousel'
 import cateList from '@/components/common/cate-list'
 import threeAd from '@/components/common/three-ad'

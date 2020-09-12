@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import demo from './data'
+import demo from './demo'
 import card from '@/components/common/card'
 import colorTag from '@/components/search/color-tag'
 import uniListItem from '@/components/uni-ui/uni-list-item/uni-list-item'

@@ -1,10 +1,12 @@
 <template>
-  <view @click.stop="onClick">
-    <image class="rounded-lg" style="width: 373rpx; height: 300rpx;" :src="goods.cover" mode="aspectFill" lazy-load />
-    <view class="flex flex-column desc">
-      <text class="font-md">{{ goods.title }}</text>
-      <text class="font-sm text-light-muted text-my-1">{{ goods.desc }}</text>
-      <price :price="goods.price" :sales="goods.sales" />
+  <view class="flex flex-wrap justify-between">
+    <view v-for="(goods, index) in goodsList" :key="index" @click.stop="onClick">
+      <image class="rounded-lg" style="width: 373rpx; height: 300rpx;" :src="goods.cover" mode="aspectFill" lazy-load />
+      <view class="flex flex-column desc">
+        <text class="font-md">{{ goods.title }}</text>
+        <text class="font-sm text-light-muted text-my-1">{{ goods.desc }}</text>
+        <price :price="goods.price" :sales="goods.sales" />
+      </view>
     </view>
   </view>
 </template>
@@ -16,8 +18,7 @@ export default {
     price,
   },
   props: {
-    goods: Object,
-    index: Number,
+    goodsList: Array,
   },
   methods: {
     onClick() {

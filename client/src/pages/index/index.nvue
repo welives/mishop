@@ -24,11 +24,7 @@
             </template>
             <!-- 图标分类 -->
             <template v-else-if="item.type === 'cate' && item.data.length">
-              <view class="flex-row flex-wrap p-2 border-light-secondary" :class="listIndex ? 'border-bottom' : ''">
-                <block v-for="(cate, cateIndex) in item.data" :key="cateIndex">
-                  <cate-list :cate="cate" :index="cateIndex" />
-                </block>
-              </view>
+              <cate-list :class="listIndex ? 'border-bottom' : ''" :cateList="item.data" />
               <view v-if="listIndex === 0" class="divider" />
             </template>
             <!-- 三图广告位 -->
@@ -42,11 +38,7 @@
             </template>
             <!-- 商品列表 -->
             <template v-else-if="item.type === 'goodsList' && item.data.length">
-              <view class="flex-row flex-wrap justify-between" style="width: 750rpx;">
-                <block v-for="(goods, goodsIndex) in item.data" :key="goodsIndex">
-                  <goods-list :goods="goods" :index="goodsIndex" />
-                </block>
-              </view>
+              <goods-list :goodsList="item.data" />
             </template>
           </cell>
           <!-- 上拉加载 -->
@@ -61,7 +53,7 @@
 </template>
 
 <script>
-import demo from './data'
+import demo from './demo'
 import uniTabbar from '@/components/index/nvue/uni-tabbar'
 import carousel from '@/components/common/carousel'
 import cateList from '@/components/common/cate-list'

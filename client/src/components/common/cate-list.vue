@@ -1,18 +1,30 @@
 <template>
-  <view class="flex flex-column align-center justify-center my-1" :style="cateWidth" @click.stop="onClick">
-    <image style="width: 60rpx; height: 60rpx;" :src="cate.src" mode="" />
-    <text class="font-sm text-muted text-mt-1">{{ cate.name }}</text>
+  <view class="cate-container border-light-secondary">
+    <view
+      class="cate-item"
+      :style="getWidth"
+      v-for="(cate, index) in cateList"
+      :key="index"
+      @click.stop="onClick(cate)"
+    >
+      <image style="width: 60rpx; height: 60rpx;" :src="cate.src" mode="" />
+      <!-- #ifdef APP-PLUS-NVUE -->
+      <text class="font-sm text-muted" style="margin-top: 10rpx;">{{ cate.name }}</text>
+      <!-- #endif -->
+      <!-- #ifndef APP-PLUS-NVUE -->
+      <text class="font-sm text-muted">{{ cate.name }}</text>
+      <!-- #endif -->
+    </view>
   </view>
 </template>
 
 <script>
 export default {
   props: {
-    cate: Object,
-    index: Number,
+    cateList: Array,
   },
   computed: {
-    cateWidth() {
+    getWidth() {
       let width = `width: 20%;`
       // #ifdef APP-PLUS-NVUE
       width = `width: ${710 / 5}rpx;`
@@ -21,9 +33,9 @@ export default {
     },
   },
   methods: {
-    onClick() {
+    onClick(cate) {
       uni.showToast({
-        title: '点击了' + this.cate.name,
+        title: '点击了' + cate.name,
         icon: 'none',
       })
     },
@@ -32,9 +44,22 @@ export default {
 </script>
 
 <style scoped>
-/* #ifdef APP-PLUS-NVUE */
-.text-mt-1 {
-  margin-top: 10rpx;
+.cate-container {
+  /* #ifndef APP-PLUS-NVUE */
+  display: flex;
+  /* #endif */
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 20rpx;
 }
-/* #endif */
+.cate-item {
+  /* #ifndef APP-PLUS-NVUE */
+  display: flex;
+  /* #endif */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10rpx;
+  margin-bottom: 10rpx;
+}
 </style>
