@@ -20,18 +20,7 @@
           <cell v-for="(item, index) in list.data" :key="index">
             <!-- 轮播图 -->
             <template v-if="item.type === 'carousel' && item.data.length">
-              <swiper
-                style="height: 300rpx;"
-                indicator-dots
-                autoplay
-                :interval="3000"
-                circular
-                indicator-active-color="#fd6801"
-              >
-                <swiper-item v-for="(carousel, carouselIndex) in item.data" :key="carouselIndex">
-                  <carousel :carousel="carousel" :index="carouselIndex" />
-                </swiper-item>
-              </swiper>
+              <carousel :carousel="item.data" :preview="false" />
             </template>
             <!-- 图标分类 -->
             <template v-else-if="item.type === 'cate' && item.data.length">

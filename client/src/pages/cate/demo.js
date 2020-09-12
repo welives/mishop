@@ -1,0 +1,32 @@
+import $conf from '@/common/config'
+export default {
+  cateList: [
+    { text: '有品推荐' },
+    { text: '家用电器' },
+    { text: '居家餐厨' },
+    { text: '电视影音' },
+    { text: '家具家装' },
+    { text: '智能家庭' },
+    { text: '手机电脑' },
+    { text: '数码周边' },
+    { text: '日用文创' },
+    { text: '服装配饰' },
+    { text: '鞋靴箱包' },
+    { text: '美妆个护' },
+    { text: '运动户外' },
+    { text: '出行车品' },
+    { text: '美食饮酒' },
+    { text: '母婴亲子' },
+    { text: '健康保健' },
+    { text: '宠物生活' },
+    { text: '有品海购' },
+  ],
+  subCate: [
+    { cover: `${$conf.ossUrl}/phone/1.jpg`, text: '分类一' },
+    { cover: `${$conf.ossUrl}/phone/2.jpg`, text: '分类二' },
+    { cover: `${$conf.ossUrl}/phone/3.jpg`, text: '分类三' },
+    { cover: `${$conf.ossUrl}/phone/4.jpg`, text: '分类四' },
+    { cover: `${$conf.ossUrl}/phone/5.jpg`, text: '分类五' },
+    { cover: `${$conf.ossUrl}/phone/6.jpg`, text: '分类六' },
+  ],
+}

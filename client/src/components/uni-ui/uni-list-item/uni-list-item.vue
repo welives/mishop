@@ -174,7 +174,7 @@ export default {
   display: flex;
   /* #endif */
   flex-direction: row;
-  padding: 12px 15px;
+  padding: 10px 5px;
   padding-left: 0;
   flex: 1;
   position: relative;

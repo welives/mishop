@@ -101,7 +101,7 @@ export default {
       filtrate: demo.filtrate,
       labelService: demo.labelService,
       labelCate: demo.labelCate,
-      dataList: demo.dataList,
+      dataList: [],
     }
   },
   // 原生标题栏按钮点击事件
@@ -132,7 +132,9 @@ export default {
       }
       // 收起键盘
       uni.hideKeyboard()
-      this.dataList.push({ test: 123 })
+      this.dataList = demo.dataList.map((v) => {
+        return { ...v }
+      })
     },
     // 修改过滤条件
     filtrateChange(index) {

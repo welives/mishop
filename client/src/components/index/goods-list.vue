@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view @click.stop="onClick">
     <image class="rounded-lg" style="width: 373rpx; height: 300rpx;" :src="goods.cover" mode="aspectFill" lazy-load />
     <view class="flex flex-column desc">
       <text class="font-md">{{ goods.title }}</text>
@@ -18,6 +18,13 @@ export default {
   props: {
     goods: Object,
     index: Number,
+  },
+  methods: {
+    onClick() {
+      uni.navigateTo({
+        url: '../../pages/detail/detail',
+      })
+    },
   },
 }
 </script>

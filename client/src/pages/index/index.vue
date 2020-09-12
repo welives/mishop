@@ -7,7 +7,6 @@
       scroll-x
       scroll-with-animation
       :scroll-into-view="scrollTabInto"
-      :show-scrollbar="false"
     >
       <view
         class="scroll-row-item px-3 py-1"
@@ -27,28 +26,11 @@
     <!-- 滑块内容区 开始 -->
     <swiper :current="tabIndex" :duration="300" :style="'height: ' + scrollHeight + 'px;'" @change="swiperChange">
       <swiper-item v-for="(list, listIndex) in dataList" :key="listIndex">
-        <scroll-view
-          class="animated fadeIn"
-          style="height: 100%;"
-          scroll-y
-          :show-scrollbar="false"
-          @scrolltolower="loadMore(listIndex)"
-        >
+        <scroll-view class="animated fadeIn" style="height: 100%;" scroll-y @scrolltolower="loadMore(listIndex)">
           <block v-for="(item, index) in list.data" :key="index">
             <!-- 轮播图 -->
             <template v-if="item.type === 'carousel' && item.data.length">
-              <swiper
-                style="height: 300rpx;"
-                indicator-dots
-                autoplay
-                :interval="3000"
-                circular
-                indicator-active-color="#fd6801"
-              >
-                <swiper-item v-for="(carousel, carouselIndex) in item.data" :key="carouselIndex">
-                  <carousel :carousel="carousel" :index="carouselIndex" />
-                </swiper-item>
-              </swiper>
+              <carousel :carousel="item.data" :preview="false" />
             </template>
             <!-- 分类 -->
             <template v-if="item.type === 'cate' && item.data.length">
