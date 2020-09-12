@@ -10,6 +10,8 @@ export default {
     title: '小米MIX3 6GB+128GB',
     desc: '磁动力滑盖全面屏 / 前后旗舰AI双摄 / 四曲面彩色陶瓷机身 / 高效10W无线充电',
     sales: 3299,
+    num: 1,
+    stock: 999,
   },
   baseAttrs: [
     { icon: 'icon-cpu', title: 'CPU', desc: '骁龙845八核' },
@@ -114,6 +116,23 @@ export default {
       desc: '1.5匹支流变频',
       price: 2699,
       sales: 2199,
+    },
+  ],
+  specList: [
+    {
+      title: '颜色',
+      index: 0,
+      list: [{ text: '火焰红' }, { text: '炭黑' }, { text: '冰川蓝' }],
+    },
+    {
+      title: '容量',
+      index: 0,
+      list: [{ text: '64GB' }, { text: '128GB' }],
+    },
+    {
+      title: '套餐',
+      index: 0,
+      list: [{ text: '标配' }, { text: '套餐一' }, { text: '套餐二' }],
     },
   ],
 }
