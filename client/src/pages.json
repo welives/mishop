@@ -16,6 +16,7 @@
         "navigationBarTitleText": "首页",
         "app-plus": {
           "bounce": "none",
+          "scrollIndicator": "none",
           "titleNView": {
             "searchInput": {
               "align": "center",
@@ -56,6 +57,7 @@
         "navigationBarTitleText": "分类",
         "app-plus": {
           "bounce": "none",
+          "scrollIndicator": "none",
           "titleNView": {
             "searchInput": {
               "align": "center",
@@ -84,7 +86,11 @@
     {
       "path": "pages/cart/cart",
       "style": {
-        "navigationStyle": "custom"
+        "navigationStyle": "custom",
+        "app-plus": {
+          "bounce": "none",
+          "scrollIndicator": "none"
+        }
       }
     },
     {
