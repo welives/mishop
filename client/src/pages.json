@@ -84,7 +84,7 @@
     {
       "path": "pages/cart/cart",
       "style": {
-        "navigationBarTitleText": "购物车"
+        "navigationStyle": "custom"
       }
     },
     {
@@ -137,6 +137,29 @@
               {
                 "type": "menu",
                 "float": "right"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "path": "pages/detail-comment/detail-comment",
+      "style": {
+        "navigationBarTitleText": "商品评论",
+        "app-plus": {
+          "scrollIndicator": "none",
+          "bounce": "none",
+          "titleNView": {
+            "buttons": [
+              {
+                "color": "#989898",
+                "colorPressed": "#fd6801",
+                "float": "right",
+                "fontSize": "20px",
+                "fontSrc": "/static/iconfont.ttf",
+                "text": "\ue64c",
+                "width": "44px"
               }
             ]
           }

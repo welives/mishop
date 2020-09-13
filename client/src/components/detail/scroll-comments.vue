@@ -28,9 +28,11 @@
         </view>
       </block>
     </scroll-view>
-    <view class="flex align-center justify-center py-2 text-primary" hover-class="bg-hover-light">
-      更多评论<text class="ml-1 iconfont icon-you"></text>
-    </view>
+    <navigator url="/pages/detail-comment/detail-comment">
+      <view class="flex align-center justify-center py-2 text-primary" hover-class="bg-hover-light">
+        更多评论<text class="ml-1 iconfont icon-you"></text>
+      </view>
+    </navigator>
   </view>
 </template>
 
