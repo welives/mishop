@@ -53,7 +53,7 @@ export default {
           },
         ],
         price: 997,
-        num: 2,
+        num: 1,
         buy_min: 1,
         stock: 999,
       },
@@ -80,7 +80,7 @@ export default {
           },
         ],
         price: 715,
-        num: 3,
+        num: 1,
         buy_min: 1,
         stock: 999,
       },
@@ -91,9 +91,54 @@ export default {
   getters: {
     // 判断是否全选
     checkedAll(state) {
-      return state.dataList.length === state.selectedList
+      return state.dataList.length === state.selectedList.length
+    },
+    totalPrice(state) {
+      let total = 0
+      state.dataList.forEach((v) => {
+        if (state.selectedList.indexOf(v.id) > -1) {
+          total += v.price * v.num
+        }
+      })
+      return total
+    },
+    // 购物车为空时禁用全选
+    disableSelectAll(state) {
+      return state.dataList.length === 0
     },
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    // 选择/取消选中某个商品
+    selectItem(state, index) {
+      let id = state.dataList[index].id
+      let i = state.selectedList.indexOf(id)
+      // 取消选中
+      if (i > -1) {
+        state.dataList[index].checked = false
+        return state.selectedList.splice(i, 1)
+      }
+      // 选中
+      state.dataList[index].checked = true
+      return state.selectedList.push(id)
+    },
+    // 执行全选
+    selectAll(state) {
+      state.selectedList = state.dataList.map((v) => {
+        v.checked = true
+        return v.id
+      })
+    },
+    // 取消全选
+    unSelectAll(state) {
+      state.dataList.forEach((v) => {
+        v.checked = false
+      })
+      state.selectedList = []
+    },
+  },
+  actions: {
+    doSelect({ state, commit, getters }) {
+      getters.checkedAll ? commit('unSelectAll') : commit('selectAll')
+    },
+  },
 }
