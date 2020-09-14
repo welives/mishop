@@ -7,10 +7,13 @@ export default {
     { src: `${$conf.ossUrl}/phone/4.jpg` },
   ],
   detail: {
+    id: 10,
     title: '小米MIX3 6GB+128GB',
     desc: '磁动力滑盖全面屏 / 前后旗舰AI双摄 / 四曲面彩色陶瓷机身 / 高效10W无线充电',
-    sales: 3299,
+    cover: `${$conf.ossUrl}/cate_01.png`,
+    price: 3299,
     num: 1,
+    buy_min: 1,
     stock: 999,
   },
   baseAttrs: [

@@ -4,7 +4,7 @@ export default {
   state: {
     dataList: [
       {
-        checked: false,
+        checked: true,
         id: 1,
         title: '商品标题1',
         cover: `${$conf.ossUrl}/phone/1.jpg`,
@@ -87,12 +87,15 @@ export default {
     ],
     // 选中列表(存放选中的id)
     selectedList: [],
+    // 记录当前弹框所操作数据的index
+    popupIndex: -1,
   },
   getters: {
     // 判断是否全选
     checkedAll(state) {
       return state.dataList.length === state.selectedList.length
     },
+    // 计算总价
     totalPrice(state) {
       let total = 0
       state.dataList.forEach((v) => {
@@ -106,8 +109,19 @@ export default {
     disableSelectAll(state) {
       return state.dataList.length === 0
     },
+    // 当前弹框拿到的数据
+    popupData(state) {
+      return state.popupIndex > -1 ? state.dataList[state.popupIndex] : {}
+    },
   },
   mutations: {
+    initSelected(state) {
+      state.dataList.map((v) => {
+        if (v.checked) {
+          state.selectedList.indexOf(v.id) === -1 && state.selectedList.push(v.id)
+        }
+      })
+    },
     // 选择/取消选中某个商品
     selectItem(state, index) {
       let id = state.dataList[index].id
@@ -121,7 +135,16 @@ export default {
       state.dataList[index].checked = true
       return state.selectedList.push(id)
     },
-    // 执行全选
+    // 滑动删除单个商品
+    delItem(state, index) {
+      let id = state.dataList[index].id
+      let i = state.selectedList.indexOf(id)
+      i > -1 && state.selectedList.splice(i, 1)
+      setTimeout(() => {
+        state.dataList.splice(index, 1)
+      }, 0)
+    },
+    // 全选
     selectAll(state) {
       state.selectedList = state.dataList.map((v) => {
         v.checked = true
@@ -135,10 +158,36 @@ export default {
       })
       state.selectedList = []
     },
+    // 删除选中的商品
+    delGoods(state) {
+      state.dataList = state.dataList.filter((v) => {
+        return state.selectedList.indexOf(v.id) === -1
+      })
+    },
+    // 初始化弹框的index
+    initPopupIndex(state, index) {
+      state.popupIndex = index
+    },
+    // 将商品加入购物车
+    addGoodsToCart(state, goods) {
+      state.dataList.unshift(goods)
+    },
   },
   actions: {
+    // 执行全选||取消全选
     doSelect({ state, commit, getters }) {
       getters.checkedAll ? commit('unSelectAll') : commit('selectAll')
+    },
+    // 执行批量删除
+    doDelGoods({ commit }) {
+      uni.showModal({
+        content: '是否要删除选中的商品？',
+        success: (res) => {
+          if (res.confirm) {
+            commit('delGoods')
+          }
+        },
+      })
     },
   },
 }

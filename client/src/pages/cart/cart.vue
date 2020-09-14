@@ -17,38 +17,13 @@
 
     <!-- 购物车商品列表 -->
     <template v-else>
-      <view class="bg-white px-2">
+      <uni-swipe-action class="w-100 bg-white">
         <block v-for="(item, index) in dataList" :key="index">
-          <view class="flex align-center py-2 border-bottom border-light-secondary" style="height: 230rpx;">
-            <label
-              class="flex align-center justify-center flex-shrink-0"
-              style="width: 80rpx; height: 80rpx;"
-              @click.stop="selectItem(index)"
-            >
-              <radio color="#fd6801" :value="item.id.toString()" :checked="item.checked" />
-            </label>
-            <image
-              class="flex-shrink-0 p-1 rounded border border-light-secondary"
-              style="width: 180rpx; height: 180rpx;"
-              :src="item.cover"
-              mode="widthFix"
-            />
-            <view class="flex-fill flex flex-column pl-2" style="height: 100%">
-              <view class="font-md">{{ item.title }}</view>
-              <text class="text-light-muted">{{ item.spec | getSpecText }}</text>
-              <view class="flex justify-between mt-auto">
-                <price :sales="item.price" />
-                <uni-number-box
-                  :value="item.num"
-                  :min="item.buy_min"
-                  :max="item.stock"
-                  @change="item.num = $event"
-                ></uni-number-box>
-              </view>
-            </view>
-          </view>
+          <uni-swipe-action-item class="w-100" :options="options" @click="swipeClick($event, index)">
+            <goods-list :goods="item" :index="index" :isEdit="isEdit" @spec-change="specChange" />
+          </uni-swipe-action-item>
         </block>
-      </view>
+      </uni-swipe-action>
     </template>
 
     <!-- 合计 -->
@@ -60,57 +35,173 @@
       <label class="flex align-center justify-center flex-shrink-0" style="width: 100rpx;" @click.stop="doSelect">
         <radio :color="disableSelectAll ? '#ccc' : '#fd6801'" :checked="checkedAll" :disabled="disableSelectAll" />
       </label>
-      <view class="flex-fill flex align-center justify-center">
-        <text class="font-md">合计：</text>
-        <price :sales="totalPrice" salesUnitFont="font" />
-      </view>
-      <view class="flex-fill text-center bg-main text-white font-md" style="height: 100rpx; line-height: 100rpx;"
-        >结算</view
-      >
+      <template v-if="!isEdit">
+        <view class="flex-fill flex align-center justify-center">
+          <text class="font-md">合计：</text>
+          <price :sales="totalPrice" salesUnitFont="font" />
+        </view>
+        <view
+          class="flex-fill text-center bg-main text-white font-md"
+          hover-class="bg-hover-main"
+          style="height: 100rpx; line-height: 100rpx;"
+          >结算</view
+        >
+      </template>
+      <template v-else>
+        <view
+          class="flex-fill text-center bg-main text-white font-md"
+          hover-class="bg-hover-main"
+          style="height: 100rpx; line-height: 100rpx;"
+          >移入收藏</view
+        >
+        <view
+          class="flex-fill text-center bg-danger text-white font-md"
+          hover-class="bg-hover-danger"
+          style="height: 100rpx; line-height: 100rpx;"
+          @click.stop="doDelGoods"
+          >删除</view
+        >
+      </template>
     </view>
+    <view style="height: 100rpx;"></view>
+
+    <!-- 自定义弹框 -->
+    <common-popup ref="popup" @hide="hidePopup">
+      <view class="flex align-center" style="height: 275rpx;">
+        <image class="rounded border" style="width: 180rpx; height: 180rpx;" :src="popupData.cover" mode="widthFix" />
+        <view class="pl-2">
+          <price sales="3369" salesFont="font-lg" salesUnitFont="font" />
+          <text>{{ popupData.spec | getSpecText }}</text>
+        </view>
+      </view>
+      <scroll-view class="w-100" scroll-y style="height: 660rpx;">
+        <block v-for="(spec, index) in popupData.spec" :key="index">
+          <card :title="spec.title" :titleBold="false" :headBorderBottom="false">
+            <btn-group :label="spec" :index.sync="spec.index"></btn-group>
+          </card>
+        </block>
+        <view class="flex align-center justify-between pt-3 mt-3 border-top border-light-secondary">
+          <text>购买数量</text>
+          <uni-number-box
+            class="flex justify-end"
+            :value="popupData.num > popupData.buy_min ? popupData.num : popupData.buy_min"
+            :min="popupData.buy_min"
+            :max="popupData.stock"
+            @change="popupData.num = $event"
+          ></uni-number-box>
+        </view>
+      </scroll-view>
+      <view
+        class="bg-main text-white font-md text-center"
+        hover-class="bg-hover-main"
+        style="height: 100rpx; line-height: 100rpx; margin: 0 -30rpx;"
+        @click.stop="hidePopup"
+        >确定</view
+      >
+    </common-popup>
   </view>
 </template>
 
 <script>
 import demo from './demo'
-import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
-import uniNavBar from '@/components/uni-ui/uni-nav-bar/uni-nav-bar'
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import price from '@/components/common/price'
+import uniNavBar from '@/components/uni-ui/uni-nav-bar/uni-nav-bar'
+import uniSwipeAction from '@/components/uni-ui/uni-swipe-action/uni-swipe-action'
+import uniSwipeActionItem from '@/components/uni-ui/uni-swipe-action-item/uni-swipe-action-item'
+import goodsList from '@/components/cart/goods-list'
+import commonPopup from '@/components/common/common-popup'
+import card from '@/components/common/card'
+import btnGroup from '@/components/common/btn-group'
 import uniNumberBox from '@/components/uni-ui/uni-number-box/uni-number-box'
 export default {
   components: {
-    uniNavBar,
     price,
+    uniNavBar,
+    uniSwipeAction,
+    uniSwipeActionItem,
     uniNumberBox,
+    goodsList,
+    commonPopup,
+    card,
+    btnGroup,
   },
   data() {
     return {
       windowBottom: 0,
       isEdit: false,
+      options: [
+        {
+          text: '移入收藏',
+          style: {
+            backgroundColor: 'rgb(241,159,65)',
+          },
+        },
+        {
+          text: '删除',
+          style: {
+            backgroundColor: 'rgb(255,58,49)',
+          },
+        },
+      ],
     }
   },
   computed: {
     ...mapState({
       dataList: (state) => state.cart.dataList,
     }),
-    ...mapGetters('cart', ['checkedAll', 'totalPrice', 'disableSelectAll']),
+    ...mapGetters('cart', ['checkedAll', 'totalPrice', 'disableSelectAll', 'popupData']),
   },
   filters: {
     getSpecText(spec) {
       return spec
-        .map((v) => {
-          return v.list[v.index].text
-        })
-        .join(' ')
+        ? spec
+            .map((v) => {
+              return v.list[v.index].text
+            })
+            .join(' ')
+        : ''
     },
   },
   onLoad() {
     const res = uni.getSystemInfoSync()
     this.windowBottom = res.windowBottom
   },
+  onShow() {
+    this.initSelected()
+  },
+  onHide() {
+    this.isEdit = false
+  },
+  onUnload() {
+    this.isEdit = false
+  },
   methods: {
-    ...mapMutations('cart', ['selectItem']),
-    ...mapActions('cart', ['doSelect']),
+    ...mapMutations('cart', ['delItem', 'initPopupIndex', 'initSelected']),
+    ...mapActions('cart', ['doSelect', 'doDelGoods']),
+    // 滑块点击事件
+    swipeClick(e, index) {
+      switch (e.content.text) {
+        case '删除':
+          this.delItem(index)
+          break
+        case '移入收藏':
+          uni.showToast({
+            title: '移入收藏',
+            icon: 'none',
+          })
+          break
+      }
+    },
+    specChange(e) {
+      if (!this.isEdit) return
+      this.$refs.popup.show()
+      this.initPopupIndex(e)
+    },
+    hidePopup() {
+      this.$refs.popup.hide()
+      this.initPopupIndex(-1)
+    },
   },
 }
 </script>

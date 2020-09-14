@@ -24,7 +24,7 @@
           class="flex-fill flex align-center justify-center bg-main text-white font-md"
           hover-class="bg-hover-main"
           style="height: 100%"
-          @click.stop="addCart"
+          @click.stop="$emit('add-cart')"
           >加入购物车</view
         >
       </view>
@@ -41,7 +41,9 @@ export default {
       this.$emit('collect')
     },
     openCart() {
-      console.log('打开购物车')
+      uni.switchTab({
+        url: '/pages/cart/cart',
+      })
     },
     addCart() {
       console.log('加入购物车')

@@ -7,32 +7,27 @@
     <!-- 滚动商品特性 -->
     <scroll-attrs :baseAttrs="baseAttrs" />
     <!-- 属性选择 -->
-    <attr-select @click="onClick" />
+    <attr-select @click="openPopup" />
     <!-- 横向滚动评论 -->
     <scroll-comments :comments="comments" />
     <!-- 商品详情 -->
-    <u-parse className="uparse" :content="context" @preview="preview" @navigate="navigate"></u-parse>
+    <u-parse className="uparse" :content="context"></u-parse>
     <!-- 热门推荐 -->
     <card title="热门推荐" :headBorderBottom="false" :titleBold="false">
       <goods-list :goodsList="goodsList" />
     </card>
     <!-- 底部操作条 -->
-    <bottom-btn />
+    <bottom-btn @add-cart="openPopup('spec')" />
     <!-- 弹出框 -->
     <view @touchmove.stop.prevent="() => {}">
       <common-popup ref="popup" @hide="hidePopup">
         <!-- 商品规格 -->
         <template v-if="popupType === 'spec'">
           <view class="flex align-center" style="height: 275rpx;">
-            <image
-              class="rounded border"
-              style="width: 180rpx; height: 180rpx;"
-              src="http://qfjny782p.hn-bkt.clouddn.com/demo/cate_01.png"
-              mode="widthFix"
-            />
+            <image class="rounded border" style="width: 180rpx; height: 180rpx;" :src="detail.cover" mode="widthFix" />
             <view class="pl-2">
-              <price sales="3369" salesFont="font-lg" salesUnitFont="font" />
-              <text>火焰红 64GB 标配</text>
+              <price :sales="detail.price" salesFont="font-lg" salesUnitFont="font" />
+              <text>{{ specList | getSpecText }}</text>
             </view>
           </view>
           <scroll-view class="w-100" scroll-y style="height: 660rpx;">
@@ -55,7 +50,7 @@
             class="bg-main text-white font-md text-center"
             hover-class="bg-hover-main"
             style="height: 100rpx; line-height: 100rpx; margin: 0 -30rpx;"
-            @click.stop="hidePopup"
+            @click.stop="addCart"
             >加入购物车</view
           >
         </template>
@@ -169,6 +164,17 @@ export default {
       popupType: '',
     }
   },
+  filters: {
+    getSpecText(spec) {
+      return spec
+        ? spec
+            .map((v) => {
+              return v.list[v.index].text
+            })
+            .join(' ')
+        : ''
+    },
+  },
   onLoad() {
     this.__init()
   },
@@ -198,19 +204,26 @@ export default {
         return { ...v }
       })
     },
-    navigate(href, $event) {
-      console.log('href: ' + href)
-    },
-    preview(src, $event) {
-      console.log('src: ' + src)
-    },
-    onClick(e) {
+    openPopup(e) {
       this.popupType = e
       this.$refs.popup.show()
     },
     hidePopup() {
       this.popupType = ''
       this.$refs.popup.hide()
+    },
+    addCart() {
+      this.popupType = 'spec'
+      this.$refs.popup.show()
+      let goods = { ...this.detail }
+      goods.checked = true
+      goods.spec = this.specList
+      this.$store.commit('cart/addGoodsToCart', goods)
+      uni.showToast({
+        title: '加入成功',
+        icon: 'none',
+      })
+      this.hidePopup()
     },
   },
 }

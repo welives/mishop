@@ -89,7 +89,8 @@
         "navigationStyle": "custom",
         "app-plus": {
           "bounce": "none",
-          "scrollIndicator": "none"
+          "scrollIndicator": "none",
+          "softinputNavBar": "none"
         }
       }
     },
@@ -104,7 +105,7 @@
       "style": {
         "navigationBarTitleText": "搜索",
         "app-plus": {
-          // 取消iOS端软键盘上方横条
+          "softinputNavBar": "none",
           "scrollIndicator": "none",
           "bounce": "none",
           "titleNView": {
