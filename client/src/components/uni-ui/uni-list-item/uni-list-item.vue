@@ -13,7 +13,14 @@
           <image :src="thumb" class="uni-list-item__icon-img" />
         </view>
         <view v-else-if="showExtraIcon" class="uni-list-item__icon">
-          <uni-icons :color="extraIcon.color" :size="extraIcon.size" :type="extraIcon.type" class="uni-icon-wrapper" />
+          <slot name="icon">
+            <uni-icons
+              :color="extraIcon.color"
+              :size="extraIcon.size"
+              :type="extraIcon.type"
+              class="uni-icon-wrapper"
+            />
+          </slot>
         </view>
         <view class="uni-list-item__content">
           <slot />
@@ -137,7 +144,7 @@ export default {
   },
   data() {
     return {
-      isFirstChild: true,
+      isFirstChild: false,
     }
   },
   methods: {
@@ -157,7 +164,7 @@ export default {
   position: relative;
   flex-direction: column;
   justify-content: space-between;
-  /* padding-left: 15px; */
+  padding-left: 15px;
 }
 
 .uni-list-item--disabled {
@@ -194,20 +201,19 @@ export default {
 /* #ifndef APP-NVUE */
 .uni-list-item__container:after {
   position: absolute;
-  /* top: 0; */
+  top: 0;
   right: 0;
   left: 0;
-  bottom: 0;
   height: 1px;
   content: '';
   -webkit-transform: scaleY(0.5);
   transform: scaleY(0.5);
-  background-color: #e5e5e5;
+  /* background-color: #e5e5e5; */
 }
 
-/* .uni-list-item--first:after {
+.uni-list-item--first:after {
   height: 0px;
-} */
+}
 
 /* #endif */
 

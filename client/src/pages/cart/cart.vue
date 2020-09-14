@@ -55,15 +55,16 @@
           >移入收藏</view
         >
         <view
-          class="flex-fill text-center bg-danger text-white font-md"
-          hover-class="bg-hover-danger"
+          class="flex-fill text-center text-white font-md"
+          :class="disableSelectAll ? 'bg-disabled-main' : 'bg-danger'"
+          :hover-class="disableSelectAll ? '' : 'bg-hover-danger'"
           style="height: 100rpx; line-height: 100rpx;"
           @click.stop="doDelGoods"
           >删除</view
         >
       </template>
     </view>
-    <view style="height: 100rpx;"></view>
+    <view class="bg-white" style="height: 100rpx;"></view>
 
     <!-- 自定义弹框 -->
     <common-popup ref="popup" @hide="hidePopup">

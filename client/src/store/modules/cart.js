@@ -179,7 +179,8 @@ export default {
       getters.checkedAll ? commit('unSelectAll') : commit('selectAll')
     },
     // 执行批量删除
-    doDelGoods({ commit }) {
+    doDelGoods({ getters, commit }) {
+      if (getters.disableSelectAll) return
       uni.showModal({
         content: '是否要删除选中的商品？',
         success: (res) => {
