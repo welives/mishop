@@ -7,7 +7,7 @@
       </slot>
     </view>
     <!-- 内容 -->
-    <view class="line-h-0" :class="getBodyClass">
+    <view class="line-h-0" :class="getBodyClass" :style="bodyStyle">
       <image v-if="cover" style="width: 100%; height: 300rpx;" :src="cover" mode="widthFix" lazy-load />
       <slot />
     </view>
@@ -40,6 +40,10 @@ export default {
     bodyPadding: {
       type: Boolean,
       default: false,
+    },
+    bodyStyle: {
+      type: String,
+      default: 'background-color: #ffffff;',
     },
   },
   computed: {

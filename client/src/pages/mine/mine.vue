@@ -12,7 +12,6 @@
           style="width: 140rpx; height: 140rpx; border: 5rpx solid #f8f9fa;"
           class="rounded-circle ml-4"
           src="http://qfjny782p.hn-bkt.clouddn.com/demo/default.jpg"
-          mode=""
         />
         <view class="ml-2 text-white font-md">测试昵称</view>
         <view
@@ -56,7 +55,12 @@
     <view class="divider"></view>
     <card :showHead="false" :headBorderBottom="false" cover="http://qfjny782p.hn-bkt.clouddn.com/demo/demo4.jpg"></card>
     <block v-for="(item, index) in listItem" :key="index">
-      <uni-list-item :title="item.title" :showExtraIcon="true">
+      <uni-list-item
+        class="border-bottom border-light"
+        :title="item.title"
+        :showExtraIcon="true"
+        @click="navigateTo(item.path)"
+      >
         <view slot="icon">
           <text class="iconfont" :class="[item.icon, item.color]"></text>
         </view>
@@ -67,6 +71,7 @@
 </template>
 
 <script>
+import common from '@/common/mixins/common'
 import card from '@/components/common/card'
 import uniListItem from '@/components/uni-ui/uni-list-item/uni-list-item'
 export default {
@@ -74,6 +79,7 @@ export default {
     card,
     uniListItem,
   },
+  mixins: [common],
   data() {
     return {
       listItem: [
@@ -81,31 +87,37 @@ export default {
           title: '仿米会员',
           icon: 'icon-VIP',
           color: 'text-warning',
+          path: '',
         },
         {
           title: '会员中心',
           icon: 'icon-huangguan',
           color: 'text-warning',
+          path: '',
         },
         {
           title: '服务中心',
           icon: 'icon-service',
           color: 'text-danger',
+          path: '',
         },
         {
           title: '仿米之家',
           icon: 'icon-home',
           color: 'text-main',
+          path: '',
         },
         {
           title: '更多功能',
           icon: 'icon-gengduo',
           color: 'text-success',
+          path: '',
         },
         {
           title: '更多设置',
           icon: 'icon-icon_set_up',
           color: 'text-secondary',
+          path: 'user-set',
         },
       ],
     }

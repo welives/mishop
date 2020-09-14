@@ -178,6 +178,71 @@
           }
         }
       }
+    },
+    {
+      "path": "pages/user-set/user-set",
+      "style": {
+        "navigationBarTitleText": "用户设置",
+        "app-plus": {
+          "scrollIndicator": "none",
+          "bounce": "none"
+        }
+      }
+    },
+    {
+      "path": "pages/user-info/user-info",
+      "style": {
+        "navigationBarTitleText": "修改资料",
+        "app-plus": {
+          "scrollIndicator": "none",
+          "bounce": "none"
+        }
+      }
+    },
+    {
+      "path": "pages/user-address/user-address",
+      "style": {
+        "navigationBarTitleText": "收货地址列表",
+        "app-plus": {
+          "scrollIndicator": "none",
+          "bounce": "none",
+          "titleNView": {
+            "buttons": [
+              {
+                "float": "right",
+                "color": "#999999",
+                "colorPressed": "#bbbbbb",
+                "fontSize": "20px",
+                "fontSrc": "/static/iconfont.ttf",
+                "text": "\ue626",
+                "width": "44px"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "path": "pages/user-address-edit/user-address-edit",
+      "style": {
+        "navigationBarTitleText": "编辑地址",
+        "app-plus": {
+          "scrollIndicator": "none",
+          "bounce": "none",
+          "titleNView": {
+            "buttons": [
+              {
+                "float": "right",
+                "color": "#999999",
+                "colorPressed": "#bbbbbb",
+                "fontSize": "15px",
+                "text": "删除",
+                "width": "44px"
+              }
+            ]
+          }
+        }
+      }
     }
   ],
   "globalStyle": {

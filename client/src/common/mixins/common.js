@@ -23,6 +23,7 @@ export default {
     },
     // 跳转到指定页面
     navigateTo(path, query = '') {
+      if (!path) return
       uni.navigateTo({
         url: query ? `/pages/${path}/${path}?${query}` : `/pages/${path}/${path}`,
       })
