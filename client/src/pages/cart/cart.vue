@@ -27,7 +27,7 @@
     </template>
 
     <!-- 热门推荐 -->
-    <view class="text-center text-main font-md font-weight-bold mt-5">为你推荐</view>
+    <view class="text-center text-main font-md font-weight-bold mt-3">为你推荐</view>
     <view class="flex align-center justify-center text-light-muted mb-3">
       <view class="flex-fill" style="height: 1rpx; background-color: #ddd;"></view>
       <view class="mx-4">买的人还买了</view>
@@ -55,6 +55,7 @@
           class="flex-fill text-center bg-main text-white font-md"
           hover-class="bg-hover-main"
           style="height: 100rpx; line-height: 100rpx;"
+          @click.stop="orderConfirm"
           >结算</view
         >
       </template>
@@ -222,6 +223,11 @@ export default {
     hidePopup() {
       this.$refs.popup.hide()
       this.initPopupIndex(-1)
+    },
+    orderConfirm() {
+      uni.navigateTo({
+        url: '../order-confirm/order-confirm',
+      })
     },
   },
 }

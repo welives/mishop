@@ -28,7 +28,7 @@
     <card>
       <view slot="title" class="flex align-center justify-between py-1">
         <text class="font-md font-weight-bold text-muted">我的订单</text>
-        <view class="text-light-muted">
+        <view class="text-light-muted" @click.stop="navigateTo('order')">
           <text class="mr-1 font-sm">全部订单</text>
           <text class="iconfont icon-you font-sm"></text>
         </view>

@@ -231,6 +231,48 @@
           "bounce": "none"
         }
       }
+    },
+    {
+      "path": "pages/order/order",
+      "style": {
+        "navigationBarTitleText": "订单页",
+        "app-plus": {
+          "scrollIndicator": "none",
+          "bounce": "none",
+          "titleNView": {
+            "buttons": [
+              {
+                "float": "right",
+                "color": "#999999",
+                "colorPressed": "#bbbbbb",
+                "fontSize": "18px",
+                "fontSrc": "/static/iconfont.ttf",
+                "text": "\ue60c",
+                "width": "30px"
+              },
+              {
+                "float": "right",
+                "color": "#999999",
+                "colorPressed": "#bbbbbb",
+                "fontSize": "18px",
+                "fontSrc": "/static/iconfont.ttf",
+                "text": "\ue6e3",
+                "width": "30px"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "path": "pages/order-confirm/order-confirm",
+      "style": {
+        "navigationBarTitleText": "确认订单",
+        "app-plus": {
+          "scrollIndicator": "none",
+          "bounce": "none"
+        }
+      }
     }
   ],
   "globalStyle": {
