@@ -62,17 +62,21 @@
             >收货地址</view
           >
           <scroll-view class="w-100" scroll-y style="height: 835rpx;">
-            <uni-list-item v-for="(item, index) in 10" :key="index">
-              <view class="font-weight-bold"><text class="iconfont icon-dingwei mr-1"></text>煎蛋</view>
-              <view class="font text-light-muted">广西南宁市</view>
+            <uni-list-item v-for="(item, index) in addrList" :key="index">
+              <view>
+                <text class="iconfont icon-dingwei font-weight-bold"></text>
+                <text class="mx-1 font-weight-bold">{{ item.name }}</text>
+                <text v-if="item.isDefault" class="text-main">[默认]</text>
+              </view>
+              <view class="font-sm text-light-muted">{{ item.location }} {{ item.street }}</view>
             </uni-list-item>
           </scroll-view>
           <view
             class="bg-main text-white font-md text-center"
             hover-class="bg-hover-main"
             style="height: 100rpx; line-height: 100rpx; margin: 0 -30rpx;"
-            @click.stop="hidePopup"
-            >选择新地址</view
+            @click.stop="createAddress"
+            >添加新地址</view
           >
         </template>
         <template v-else-if="popupType === 'service'">
@@ -164,6 +168,11 @@ export default {
       popupType: '',
     }
   },
+  computed: {
+    addrList() {
+      return this.$store.state.address.addrList
+    },
+  },
   filters: {
     getSpecText(spec) {
       return spec
@@ -222,6 +231,12 @@ export default {
       uni.showToast({
         title: '加入成功',
         icon: 'none',
+      })
+      this.hidePopup()
+    },
+    createAddress() {
+      uni.navigateTo({
+        url: '../user-address-edit/user-address-edit',
       })
       this.hidePopup()
     },

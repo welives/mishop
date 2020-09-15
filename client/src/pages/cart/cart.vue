@@ -1,5 +1,5 @@
 <template>
-  <view style="background-color: #f5f5f5;">
+  <view>
     <uni-nav-bar
       title="购物车"
       statusBar
@@ -25,6 +25,17 @@
         </block>
       </uni-swipe-action>
     </template>
+
+    <!-- 热门推荐 -->
+    <view class="text-center text-main font-md font-weight-bold mt-5">为你推荐</view>
+    <view class="flex align-center justify-center text-light-muted mb-3">
+      <view class="flex-fill" style="height: 1rpx; background-color: #ddd;"></view>
+      <view class="mx-4">买的人还买了</view>
+      <view class="flex-fill" style="height: 1rpx; background-color: #ddd;"></view>
+    </view>
+    <view class="bg-white">
+      <hot-list :goodsList="hotList" />
+    </view>
 
     <!-- 合计 -->
     <view
@@ -111,6 +122,7 @@ import uniNavBar from '@/components/uni-ui/uni-nav-bar/uni-nav-bar'
 import uniSwipeAction from '@/components/uni-ui/uni-swipe-action/uni-swipe-action'
 import uniSwipeActionItem from '@/components/uni-ui/uni-swipe-action-item/uni-swipe-action-item'
 import goodsList from '@/components/cart/goods-list'
+import hotList from '@/components/index/goods-list'
 import commonPopup from '@/components/common/common-popup'
 import card from '@/components/common/card'
 import btnGroup from '@/components/common/btn-group'
@@ -123,6 +135,7 @@ export default {
     uniSwipeActionItem,
     uniNumberBox,
     goodsList,
+    hotList,
     commonPopup,
     card,
     btnGroup,
@@ -145,6 +158,7 @@ export default {
           },
         },
       ],
+      hotList: [],
     }
   },
   computed: {
@@ -167,6 +181,7 @@ export default {
   onLoad() {
     const res = uni.getSystemInfoSync()
     this.windowBottom = res.windowBottom
+    this.__init()
   },
   onShow() {
     this.initSelected()
@@ -180,6 +195,11 @@ export default {
   methods: {
     ...mapMutations('cart', ['delItem', 'initPopupIndex', 'initSelected']),
     ...mapActions('cart', ['doSelect', 'doDelGoods']),
+    __init() {
+      this.hotList = demo.hotList.map((v) => {
+        return { ...v }
+      })
+    },
     // 滑块点击事件
     swipeClick(e, index) {
       switch (e.content.text) {
@@ -207,4 +227,8 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+page {
+  background-color: #f8f8f8;
+}
+</style>

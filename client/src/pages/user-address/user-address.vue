@@ -3,7 +3,7 @@
     <uni-swipe-action class="w-100 bg-white">
       <block v-for="(item, index) in addrList" :key="index">
         <uni-swipe-action-item class="w-100" :options="options" @click="swipeClick($event, index)">
-          <uni-list-item class="border-bottom border-light">
+          <uni-list-item class="border-bottom border-light w-100">
             <view class="text-secondary">
               <view class="flex align-center">
                 <text class="text-main">{{ item.name }}</text>
@@ -69,10 +69,29 @@ export default {
     swipeClick(e, index) {
       switch (e.index) {
         case 0:
-          console.log('编辑')
+          let obj = JSON.stringify({
+            index,
+            address: this.addrList[index],
+          })
+          uni.navigateTo({
+            url: '../user-address-edit/user-address-edit?data=' + encodeURIComponent(obj),
+          })
           break
         case 1:
-          console.log('删除')
+          uni.showModal({
+            content: '要删除该收货地址吗？',
+            success: (res) => {
+              if (res.confirm) {
+                setTimeout(() => {
+                  this.$store.commit('address/delAddress', index)
+                }, 0)
+                uni.showToast({
+                  title: '删除成功',
+                  icon: 'none',
+                })
+              }
+            },
+          })
           break
       }
     },

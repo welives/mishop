@@ -225,22 +225,10 @@
     {
       "path": "pages/user-address-edit/user-address-edit",
       "style": {
-        "navigationBarTitleText": "编辑地址",
+        "navigationBarTitleText": "新增收货地址",
         "app-plus": {
           "scrollIndicator": "none",
-          "bounce": "none",
-          "titleNView": {
-            "buttons": [
-              {
-                "float": "right",
-                "color": "#999999",
-                "colorPressed": "#bbbbbb",
-                "fontSize": "15px",
-                "text": "删除",
-                "width": "44px"
-              }
-            ]
-          }
+          "bounce": "none"
         }
       }
     }
