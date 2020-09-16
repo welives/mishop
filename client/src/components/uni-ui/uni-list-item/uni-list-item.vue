@@ -181,7 +181,7 @@ export default {
   display: flex;
   /* #endif */
   flex-direction: row;
-  padding: 10px 5px;
+  padding: 10px 15px;
   padding-left: 0;
   flex: 1;
   position: relative;

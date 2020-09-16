@@ -3,7 +3,7 @@
     <uni-swipe-action class="w-100 bg-white">
       <block v-for="(item, index) in addrList" :key="index">
         <uni-swipe-action-item class="w-100" :options="options" @click="swipeClick($event, index)">
-          <uni-list-item class="border-bottom border-light w-100">
+          <uni-list-item class="border-bottom border-light w-100" @click="choose(item)">
             <view class="text-secondary">
               <view class="flex align-center">
                 <text class="text-main">{{ item.name }}</text>
@@ -39,6 +39,7 @@ export default {
   },
   data() {
     return {
+      isChoose: false,
       options: [
         {
           text: '编辑',
@@ -59,6 +60,9 @@ export default {
     ...mapState({
       addrList: (state) => state.address.addrList,
     }),
+  },
+  onLoad(e) {
+    e.type === 'choose' && (this.isChoose = true)
   },
   onNavigationBarButtonTap() {
     uni.navigateTo({
@@ -94,6 +98,13 @@ export default {
           })
           break
       }
+    },
+    choose(addr) {
+      if (!this.isChoose) return
+      uni.$emit('chooseAddr', addr)
+      uni.navigateBack({
+        delta: 1,
+      })
     },
   },
 }
